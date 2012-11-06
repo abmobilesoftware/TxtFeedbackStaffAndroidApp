@@ -1,1 +1,4 @@
 ﻿bin/classes/com/beem/project/beem/service/UserInfo.aidl
+Debug/
+Release/
+bin/
