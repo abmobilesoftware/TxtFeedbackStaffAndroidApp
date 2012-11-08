@@ -108,7 +108,6 @@ import com.beem.project.beem.ui.dialogs.builders.ChatList;
 import com.beem.project.beem.ui.dialogs.builders.DisplayOtrFingerprint;
 import com.beem.project.beem.utils.BeemBroadcastReceiver;
 import com.beem.project.beem.utils.Status;
-import com.beem.project.beem.utils.TxtFeedbackUtilities;
 import com.beem.project.beem.utils.TxtPacket;
 
 /**
@@ -126,7 +125,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 
     private IRoster mRoster;
     private Contact mContact;
-    private String mAlternativeContact;
+
     private TextView mContactNameTextView;
     private TextView mContactStatusMsgTextView;
     private TextView mContactChatState;
@@ -153,6 +152,8 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
     private String mCurrentAvatarId;
     private boolean mBinded;
     private boolean mCompact;
+    private String mConvID;
+    private boolean mIsSMSBased;
 
     /**
      * Constructor.
@@ -191,7 +192,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	mSendButton = (Button) findViewById(R.id.chat_send_message);
 	mSendButton.setOnClickListener(new OnClickListener() {
 	    @Override
-	    public void onClick(View v) {
+	    public void onClick(View v) {	    	
 		sendMessage();
 	    }
 	});
@@ -202,10 +203,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
     @Override
     protected void onResume() {
 	super.onResume();
-	Bundle extras = getIntent().getExtras();
-	String threadID = extras.getString("THREADID");
-	String componentID = extras.getString("COMPID");
-	mContact = new Contact(threadID,componentID);
+	mContact = new Contact(getIntent().getData());
 	if (!mBinded) {
 	    bindService(SERVICE_INTENT, mConn, BIND_AUTO_CREATE);
 	    mBinded = true;
@@ -374,7 +372,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    mChat.setOpen(true);
 	    mChat.addMessageListener(mMessageListener);
 	    mChatManager.deleteChatNotification(mChat);
-	    //updateOtrInformations(mChat.getOtrStatus());
+	    updateOtrInformations(mChat.getOtrStatus());
 	}
 	mContact = mRoster.getContact(contact.getJID());
 	String res = contact.getSelectedRes();
@@ -397,6 +395,12 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	mListMessages.clear();
 	if (mChat != null) {
 	    List<MessageText> msgList = convertMessagesList(mChat.getMessages());
+	    if(!msgList.isEmpty()) {
+	    	//TODO DA
+	    	TxtPacket tPkg = new TxtPacket(msgList.get(0).getMessage());
+	    	mConvID = tPkg.getConversationId();
+	    	mIsSMSBased = tPkg.getIsSms();
+	    }
 	    mListMessages.addAll(msgList);
 	    mMessagesListAdapter.notifyDataSetChanged();
 	}
@@ -428,17 +432,15 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		    name = localName;
 		    fromBareJid = "";
 		}
-
+		
 		if (m.getBody() != null) {
-		    if (lastMessage == null || !fromBareJid.equals(lastMessage.getBareJid())) {		    	
-		    	lastMessage = new MessageText(fromBareJid, name, m.getBody(), false, m.getTimestamp());
+		    if (lastMessage == null || !fromBareJid.equals(lastMessage.getBareJid())) {
+		    	//TODO DA fix this
+		    	lastMessage = new MessageText(fromBareJid, name, m.getBody(), false, m.getTimestamp());			
 		    	result.add(lastMessage);
 		    } else {
-		    	TxtPacket pkg = new TxtPacket(m.getBody());
-		    	TxtPacket oldpkg = new TxtPacket(lastMessage.getMessage());
-		    	oldpkg.setBody(oldpkg.getBody().concat("\n" + pkg.getBody()));
-		    	
-		    	lastMessage.setMessage(oldpkg.toXML());
+		    	//TODO DA fix this
+		    	lastMessage.setMessage(lastMessage.getMessage().concat("\n" + m.getBody()));
 		    }
 		}
 	    }
@@ -471,7 +473,6 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		if (mChatManager != null) {
 		    mChatManager.addChatCreationListener(mChatManagerListener);
 		    changeCurrentChat(mContact);
-		 //   changeCurrentChat(m);
 		}
 	    } catch (RemoteException e) {
 		Log.e(TAG, e.getMessage());
@@ -534,9 +535,8 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		mHandler.post(new Runnable() {
 		    @Override
 		    public void run() {
-		    	//TODO DA not doing changes on status chage
-			//mContact.setStatus(presence.getStatus());
-			//mContact.setMsgState(presence.getStatusText());
+			mContact.setStatus(presence.getStatus());
+			mContact.setMsgState(presence.getStatusText());
 			updateContactInformations();
 			updateContactStatusIcon();
 		    }
@@ -560,9 +560,9 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	 * {@inheritDoc}.
 	 */
 	@Override
-	public void processMessage(IChat chat, final Message msg) throws RemoteException {		
-	    final String fromBareJid = msg.getConvFrom(); //StringUtils.parseBareAddress(msg.getFrom());
-	    //TODO DA replaced contact.Name with from    
+	public void processMessage(IChat chat, final Message msg) throws RemoteException {
+	    final String fromBareJid = StringUtils.parseBareAddress(msg.getFrom());
+
 	    if (mContact.getJID().equals(fromBareJid)) {
 		mHandler.post(new Runnable() {
 
@@ -573,22 +573,22 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 				.getTimestamp()));
 			    mMessagesListAdapter.notifyDataSetChanged();
 			} else if (msg.getBody() != null) {
+				//TODO DA
+				 
 			    MessageText lastMessage = null;
 			    if (mListMessages.size() != 0)
 				lastMessage = mListMessages.get(mListMessages.size() - 1);
 
 			    if (lastMessage != null && lastMessage.getBareJid().equals(fromBareJid)) {
-			    TxtPacket existingMsg = new TxtPacket(lastMessage.getMessage());
-			    TxtPacket newMsg = new TxtPacket(msg.getBody());
-			    existingMsg.setBody(existingMsg.getBody().concat("\n" + newMsg.getBody() ));
-				lastMessage.setMessage(existingMsg.toXML());
-				lastMessage.setTimestamp(msg.getTimestamp());
-				mListMessages.set(mListMessages.size() - 1, lastMessage);
+			    	//TODO DA fix this
+			    	lastMessage.setMessage(lastMessage.getMessage().concat("\n" + msg.getBody()));
+			    	lastMessage.setTimestamp(msg.getTimestamp());
+			    	mListMessages.set(mListMessages.size() - 1, lastMessage);
 			    } else if (msg.getBody() != null) {
-			        //TxtPacket tMsg = new TxtPacket(msg.getBody());
-			        //String content = tMsg.getBody();
-			     	mListMessages.add(new MessageText(fromBareJid, mContact.getName(), msg.getBody(),
-				    false, msg.getTimestamp()));}
+			    	//TODO DA fix this
+			    	mListMessages.add(new MessageText(fromBareJid, mContact.getName(), msg.getBody(),
+				    false, msg.getTimestamp()));
+			    }
 			    mMessagesListAdapter.notifyDataSetChanged();
 			}
 		    }
@@ -804,15 +804,12 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    }
 	    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 	    MessageText msg = mListMessages.get(position);
-	    TxtPacket pkg = new TxtPacket(msg.getMessage());
 	    TextView msgName = (TextView) sv.findViewById(R.id.chatmessagename);
-	    msgName.setText(pkg.getFromAddress());
+	    msgName.setText(msg.getName());
 	    msgName.setTextColor(Color.WHITE);
 	    msgName.setError(null);
-	    //DA on display, remove all noise and show only the message
-	    TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);
-	    
-	    msgText.setText(pkg.getBody());
+	    TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);	    
+	    msgText.setText(msg.getMessage());
 	    registerForContextMenu(msgText);
 	    TextView msgDate = (TextView) sv.findViewById(R.id.chatmessagedate);
 	    if (msg.getTimestamp() != null) {
@@ -979,9 +976,10 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	final String inputContent = mInputField.getText().toString();
 
 	if (!"".equals(inputContent)) {
-		//TODO DA the chat should contain the conversation ID
-		String convID = "453678583034402e801c36e9bdfa686c-dragos";
-	    Message msgToSend = new Message(mContact.getJIDWithRes(),convID, Message.MSG_TYPE_CHAT);
+		//TODO DA the chat should contain the conversation ID and the is SMSBased flag
+		String convID = mConvID;// "7ea8a59d948d42c38cd6bce4b4ca883a-abmobdemo1";
+		boolean isSMSBased = mIsSMSBased;//false;
+	    Message msgToSend = new Message(mContact.getJIDWithRes(),convID, isSMSBased, Message.MSG_TYPE_CHAT);
 	    msgToSend.setBody(inputContent);
 
 	    try {
@@ -1000,14 +998,10 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		lastMessage = mListMessages.get(mListMessages.size() - 1);
 
 	    if (lastMessage != null && lastMessage.getName().equals(self)) {
-		    //DA the message body is encoded
-		    TxtPacket pkg = new TxtPacket(lastMessage.getMessage());
-		    pkg.setBody(pkg.getBody().concat("\n" + inputContent));
-			lastMessage.setMessage(pkg.toXML());
-			lastMessage.setTimestamp(new Date());
-	    } else {	    	
-	    	mListMessages.add(new MessageText(self, self, msgToSend.asTxtPacket().toXML(), false, new Date()));
-	    }
+		lastMessage.setMessage(lastMessage.getMessage().concat("\n" + inputContent));
+		lastMessage.setTimestamp(new Date());
+	    } else
+		mListMessages.add(new MessageText(self, self, inputContent, false, new Date()));
 	    mMessagesListAdapter.notifyDataSetChanged();
 	    mInputField.setText(null);
 	}
@@ -1029,10 +1023,8 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    if (locally)
 		return;
 	    try {
-		//String contactJid = mContact.getJIDWithRes();
-	    	String contactJid = mContact.getJIDWithRes();
-		//String chatJid = chat.getParticipant().getJIDWithRes();
-		String chatJid = chat.getThreadID();
+		String contactJid = mContact.getJIDWithRes();
+		String chatJid = chat.getParticipant().getJIDWithRes();
 		if (chatJid.equals(contactJid)) {
 		    // This should not be happened but to be sure
 		    if (mChat != null) {

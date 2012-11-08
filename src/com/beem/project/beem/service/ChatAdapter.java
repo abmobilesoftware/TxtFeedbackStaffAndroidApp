@@ -46,13 +46,10 @@ package com.beem.project.beem.service;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import net.java.otr4j.OtrException;
 import net.java.otr4j.session.SessionID;
@@ -63,7 +60,6 @@ import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
 
-import android.net.Uri;
 import android.os.Environment;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
@@ -86,38 +82,27 @@ public class ChatAdapter extends IChat.Stub {
 
     private final Chat mAdaptee;
     private final Contact mParticipant;
-    private final String mThreadID;
     private String mState;
     private boolean mIsOpen;
     private final List<Message> mMessages;
     private final RemoteCallbackList<IMessageListener> mRemoteListeners = new RemoteCallbackList<IMessageListener>();
-    
-    public RemoteCallbackList<IMessageListener> getRemoteListeners() {
-		return mRemoteListeners;
-	}
-
-	private final MsgListener mMsgListener = new MsgListener();
+    private final MsgListener mMsgListener = new MsgListener();
     private SessionID mOtrSessionId;
     private boolean mIsHistory;
     private File mHistoryPath;
     private String mAccountUser;
-    private ChatAdapterSyndication mParent; 
-    
+    private String mConvID;
+    private boolean mIsSMSBased;
 
     /**
      * Constructor.
      * @param chat The chat to adapt
      */
-	public ChatAdapter(final Chat chat, final String threadID, final ChatAdapterSyndication parent) {
+    public ChatAdapter(final Chat chat) {
 	mAdaptee = chat;
-	//TODO DA chat adapter
-//	mParticipant = new Contact(chat.getParticipant());
-	//TODO DA make sure that getParticipant and getParticipant.getJID return the same
-	mParticipant = new Contact(threadID,chat.getParticipant());
-	mThreadID =threadID;
+	mParticipant = new Contact(chat.getParticipant());
 	mMessages = new LinkedList<Message>();
 	mAdaptee.addMessageListener(mMsgListener);
-	mParent = parent;
     }
 
     /**
@@ -133,35 +118,38 @@ public class ChatAdapter extends IChat.Stub {
      */
     @Override
     public void sendMessage(com.beem.project.beem.service.Message message) throws RemoteException {
-    message.setFrom(this.mAccountUser);
-	com.beem.project.beem.service.Message encrypted = otrEncryptMessage(message);	
+	com.beem.project.beem.service.Message encrypted = otrEncryptMessage(message);
+	com.beem.project.beem.service.Message messageAsXML;
 	if (encrypted != null) {
-	    transferMessage(encrypted);
+		messageAsXML =transferMessage(encrypted);
 	} else {
-	    transferMessage(message);
+		messageAsXML =transferMessage(message);
 	}
-	addMessage(message);
+	addMessage(messageAsXML);
     }
 
     /**
      * private method for sending message.
      * @param message the message to send
      */
-    private void transferMessage(com.beem.project.beem.service.Message message) {
+    private com.beem.project.beem.service.Message transferMessage(com.beem.project.beem.service.Message message) {
 	org.jivesoftware.smack.packet.Message send = new org.jivesoftware.smack.packet.Message();
 	String msgBody = message.getBody();
+	String convID = mConvID;
+	boolean isSMSBased = mIsSMSBased;
+	String[] fromTo = TxtFeedbackUtilities.getFromToConversationID(convID);
+	String to = fromTo[0]+"@txtfeedback.net";
+	String from = fromTo[1]+"@compdev.txtfeedback.net";
+			//"7ea8a59d948d42c38cd6bce4b4ca883a-abmobdemo1";
+	Date now = new Date();
+	boolean forStaff = false;
+	TxtPacket pkg = new TxtPacket(from,to,now,msgBody,forStaff,isSMSBased,convID);
 	send.setTo(message.getTo());
 	Log.w(TAG, "message to " + message.getTo());
-	
-	Date now = new Date();
-	String to = "dragos@moderator.txtfeedback.net";
-	String convID = TxtFeedbackUtilities.createConvId(message.getConvFrom(), message.getConvTo());
-	TxtPacket pkg = new TxtPacket(message.getConvFrom(), message.getConvTo(),now,msgBody,false,false,convID);
 	send.setBody(pkg.toXML());
 
 	send.setThread(message.getThread());
 	String subject = "internal_packet";
-	
 	send.setSubject(subject);
 	send.setType(org.jivesoftware.smack.packet.Message.Type.chat);
 	// TODO gerer les messages contenant des XMPPError
@@ -171,6 +159,8 @@ public class ChatAdapter extends IChat.Stub {
 	} catch (XMPPException e) {
 	    e.printStackTrace();
 	}
+	message.setBody(pkg.toXML());
+	return message;
     }
 
     /**
@@ -178,8 +168,10 @@ public class ChatAdapter extends IChat.Stub {
      * @param msg to send.
      */
     public void injectMessage(String msg) {
-    String convID =	"453678583034402e801c36e9bdfa686c-dragos";
-	Message msgToSend = new Message(mParticipant.getJIDWithRes(), convID, Message.MSG_TYPE_CHAT);
+    //TODO DA 
+    String convID = "7ea8a59d948d42c38cd6bce4b4ca883a-abmobdemo1";
+    boolean isSMSBased = false;
+	Message msgToSend = new Message(mParticipant.getJIDWithRes(),convID,isSMSBased, Message.MSG_TYPE_CHAT);
 	msgToSend.setBody(msg);
 	transferMessage(msgToSend);
     }
@@ -188,7 +180,7 @@ public class ChatAdapter extends IChat.Stub {
      * {@inheritDoc}
      */
     @Override
-	public void addMessageListener(IMessageListener listen) {
+    public void addMessageListener(IMessageListener listen) {
 	if (listen != null)
 	    mRemoteListeners.register(listen);
     }
@@ -255,7 +247,11 @@ public class ChatAdapter extends IChat.Stub {
      * Add a message in the chat history.
      * @param msg the message to add
      */
-    public void addMessage(Message msg) {
+    private void addMessage(Message msg) {
+    	TxtPacket pkg = new TxtPacket(msg.getBody());
+    	//TODO DA
+    	this.setConvID(pkg.getConversationId());
+    	this.setIsSMSBased(pkg.getIsSms());
 	if (mMessages.size() == HISTORY_MAX_SIZE)
 	    mMessages.remove(0);
 	mMessages.add(msg);
@@ -357,8 +353,9 @@ public class ChatAdapter extends IChat.Stub {
 	if (mOtrSessionId != null && unencrypted != null && unencrypted.getBody() != null) {
 	    try {
 		String body = BeemOtrManager.getInstance().getOtrManager().transformSending(mOtrSessionId, unencrypted.getBody());
-		Message result = new Message(unencrypted.getTo(), unencrypted.getConvID(), unencrypted.getType());
+		Message result = new Message(unencrypted.getTo(), unencrypted.getConvID(),unencrypted.getIsSMSBased(), unencrypted.getType());
 		result.setFrom(unencrypted.getFrom());
+		//Message result = new Message(unencrypted.getTo(), unencrypted.getType());
 		result.setBody(body);
 		return result;
 	    } catch (OtrException e) {
@@ -380,35 +377,36 @@ public class ChatAdapter extends IChat.Stub {
 
 	@Override
 	public void processMessage(Chat chat, org.jivesoftware.smack.packet.Message message) {
-		mParent.processMessage(chat, message);
-//		//DA get the conversation id from the message
-//		TxtPacket pkg = new TxtPacket(message.getBody());
-//	    Message msg = new Message(message, pkg.getConversationId());
-//	    Log.d(TAG, "new msg " + msg.getBody());
-//	    String body;
-//
-//	    if (mOtrSessionId != null) {
-//		try {
-//		    body = BeemOtrManager.getInstance().getOtrManager()
-//			.transformReceiving(mOtrSessionId, msg.getBody());
-//		    msg.setBody(body);
-//		} catch (OtrException e) {
-//		    Log.w(TAG, "Unable to decrypt OTR message", e);
-//		}
-//	    }
-//	    //TODO add que les message pas de type errors
-//	    ChatAdapter.this.addMessage(msg);
-//	    final int n = mRemoteListeners.beginBroadcast();
-//	    for (int i = 0; i < n; i++) {
-//		IMessageListener listener = mRemoteListeners.getBroadcastItem(i);
-//		try {
-//		    if (listener != null)
-//			listener.processMessage(ChatAdapter.this, msg);
-//		} catch (RemoteException e) {
-//		    Log.w(TAG, "Error while diffusing message to listener", e);
-//		}
-//	    }
-//	    mRemoteListeners.finishBroadcast();
+		TxtPacket pkg = new TxtPacket(message.getBody());
+		String convID = pkg.getConversationId();
+		boolean isSMSBased = pkg.getIsSms();
+	    Message msg = new Message(message, convID, isSMSBased);
+	    
+	    Log.d(TAG, "new msg " + msg.getBody());
+	    String body;
+
+	    if (mOtrSessionId != null) {
+		try {
+		    body = BeemOtrManager.getInstance().getOtrManager()
+			.transformReceiving(mOtrSessionId, msg.getBody());
+		    msg.setBody(body);
+		} catch (OtrException e) {
+		    Log.w(TAG, "Unable to decrypt OTR message", e);
+		}
+	    }
+	    //TODO add que les message pas de type errors
+	    ChatAdapter.this.addMessage(msg);
+	    final int n = mRemoteListeners.beginBroadcast();
+	    for (int i = 0; i < n; i++) {
+		IMessageListener listener = mRemoteListeners.getBroadcastItem(i);
+		try {
+		    if (listener != null)
+			listener.processMessage(ChatAdapter.this, msg);
+		} catch (RemoteException e) {
+		    Log.w(TAG, "Error while diffusing message to listener", e);
+		}
+	    }
+	    mRemoteListeners.finishBroadcast();
 	}
 
 	/**
@@ -437,8 +435,8 @@ public class ChatAdapter extends IChat.Stub {
      * @param otrState the new state of otr session.
      */
     public void otrStateChanged(final String otrState) {
-    String convID =	"453678583034402e801c36e9bdfa686c-dragos";
-	Message m = new Message(null, convID, Message.MSG_TYPE_INFO);
+    	//TODO DA - of the record should not be used by our app
+	Message m = new Message(null, null, false, Message.MSG_TYPE_INFO);
 	m.setBody(otrState);
 	addMessage(m);
 	final int n = mRemoteListeners.beginBroadcast();
@@ -539,8 +537,19 @@ public class ChatAdapter extends IChat.Stub {
 	return BeemOtrManager.getInstance().getOtrManager().getSessionStatus(mOtrSessionId).toString();
     }
 
-	@Override
-	public String getThreadID() throws RemoteException {
-		return mThreadID;
+	private String getConvID() {
+		return mConvID;
+	}
+
+	private void setConvID(String mConvID) {
+		this.mConvID = mConvID;
+	}
+
+	private boolean getIsSMSBased() {
+		return mIsSMSBased;
+	}
+
+	private void setIsSMSBased(boolean mIsSMSBased) {
+		this.mIsSMSBased = mIsSMSBased;
 	}
 }
