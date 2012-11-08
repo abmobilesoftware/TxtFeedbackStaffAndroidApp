@@ -587,7 +587,11 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 
 			    if (lastMessage != null && lastMessage.getBareJid().equals(fromBareJid)) {
 			    	//TODO DA fix this
-			    	lastMessage.setMessage(lastMessage.getMessage().concat("\n" + msg.getBody()));
+			    	TxtPacket lMsg = new TxtPacket(lastMessage.getMessage());
+			    	TxtPacket nMsg = new TxtPacket(msg.getBody());
+			    	String body = lMsg.getBody().concat("\n" + nMsg.getBody());		
+			    	lMsg.setBody(body);
+			    	lastMessage.setMessage(lMsg.toXML());//lastMessage.getMessage().concat("\n" + msg.getBody()));
 			    	lastMessage.setTimestamp(msg.getTimestamp());
 			    	mListMessages.set(mListMessages.size() - 1, lastMessage);
 			    } else if (msg.getBody() != null) {

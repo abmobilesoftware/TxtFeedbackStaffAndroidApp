@@ -64,7 +64,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Environment;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
@@ -89,9 +88,8 @@ public class BeemChatManager extends IChatManager.Stub {
 
     private static final String TAG = "BeemChatManager";
     private final ChatManager mAdaptee;
-    //private final Map<String, ChatAdapter> mChats = new HashMap<String, ChatAdapter>();
-    private final Map<String, ChatAdapterSyndication> mChats = new HashMap<String, ChatAdapterSyndication>();
-    private final ChatListener mChatListener = new ChatListener(this);
+    private final Map<String, ChatAdapter> mChats = new HashMap<String, ChatAdapter>();
+    private final ChatListener mChatListener = new ChatListener();
     private final RemoteCallbackList<IChatManagerListener> mRemoteChatCreationListeners =
 	new RemoteCallbackList<IChatManagerListener>();
     private final BeemService mService;
@@ -110,12 +108,6 @@ public class BeemChatManager extends IChatManager.Stub {
 	mAdaptee.addChatListener(mChatListener);
     }
 
-    public BeemChatManager(BeemChatManager other) {
-    	mService = other.mService;
-    	mAdaptee = other.mAdaptee;
-    	//roster.addRosterListener(other.mChatRosterListn);
-    	mAdaptee.addChatListener(mChatListener);
-    }
     @Override
     public void addChatCreationListener(IChatManagerListener listener) throws RemoteException {
 	if (listener != null)
@@ -142,19 +134,18 @@ public class BeemChatManager extends IChatManager.Stub {
      */
     public IChat createChat(String jid, IMessageListener listener) {
 	String key = jid;
-//	ChatAdapter result;
-//	if (mChats.containsKey(key)) {
-//	    result = mChats.get(key);
-//	    result.addMessageListener(listener);
-//	    return result;
-//	}
-//	Chat c = mAdaptee.createChat(key, null);
-//	// maybe a little problem of thread synchronization
-//	// if so use an HashTable instead of a HashMap for mChats
-//	result = getChat(c);
-//	result.addMessageListener(listener);
-//	return result;
-	return null;
+	ChatAdapter result;
+	if (mChats.containsKey(key)) {
+	    result = mChats.get(key);
+	    result.addMessageListener(listener);
+	    return result;
+	}
+	Chat c = mAdaptee.createChat(key, null);
+	// maybe a little probleme of thread synchronization
+	// if so use an HashTable instead of a HashMap for mChats
+	result = getChat(c);
+	result.addMessageListener(listener);
+	return result;
     }
 
     /**
@@ -167,8 +158,7 @@ public class BeemChatManager extends IChatManager.Stub {
 	if (chat == null)
 	    return;
 	deleteChatNotification(chat);
-	//mChats.remove(chat.getParticipant().getJID());
-	mChats.remove(chat.getThreadID());
+	mChats.remove(chat.getParticipant().getJID());
     }
 
     /**
@@ -177,8 +167,7 @@ public class BeemChatManager extends IChatManager.Stub {
     @Override
     public void deleteChatNotification(IChat chat) {
 	try {
-	    //mService.deleteNotification(chat.getParticipant().getJID().hashCode());
-	    mService.deleteNotification(chat.getThreadID().hashCode());
+	    mService.deleteNotification(chat.getParticipant().getJID().hashCode());
 	} catch (RemoteException e) {
 	    Log.v(TAG, "Remote exception ", e);
 	}
@@ -189,38 +178,32 @@ public class BeemChatManager extends IChatManager.Stub {
      * @param chat The real instance of smack chat
      * @return a chat adapter register in the manager
      */
-    private ChatAdapter getChat(Chat chat, BeemChatManager mng) {
-    	//DA the key for the syndication is the participant
+    private ChatAdapter getChat(Chat chat) {
 	String key = chat.getParticipant();
-	
-	//TODO DA getParticipant()
 	if (mChats.containsKey(key)) {
-	    return mChats.get(key).getChat(chat, chat.getThreadID(), this);
+	    return mChats.get(key);
 	}
-	ChatAdapterSyndication newChatAdapter = new ChatAdapterSyndication(mService, chat, this);
-	//ChatAdapter res = new ChatAdapter(chat);
-//	boolean history = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getBoolean(
-//	    "settings_key_history", false);
-//	String accountUser = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getString(
-//	    BeemApplication.ACCOUNT_USERNAME_KEY, "");
-//	String historyPath = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getString(
-//	    BeemApplication.CHAT_HISTORY_KEY, "");
-//	if ("".equals(historyPath)) historyPath = "/Android/data/com.beem.project.beem/chat/";
-//	res.setHistory(history);
-//	res.setAccountUser(accountUser);
-//	res.listenOtrSession();
-//	res.setHistoryPath(new File(Environment.getExternalStorageDirectory(), historyPath));
-//	Log.d(TAG, "getChat put " + key);
-	mChats.put(key, newChatAdapter);
-	return newChatAdapter.getChat(chat,chat.getThreadID(),this);
+	ChatAdapter res = new ChatAdapter(chat);
+	boolean history = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getBoolean(
+	    "settings_key_history", false);
+	String accountUser = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getString(
+	    BeemApplication.ACCOUNT_USERNAME_KEY, "");
+	String historyPath = PreferenceManager.getDefaultSharedPreferences(mService.getBaseContext()).getString(
+	    BeemApplication.CHAT_HISTORY_KEY, "");
+	if ("".equals(historyPath)) historyPath = "/Android/data/com.beem.project.beem/chat/";
+	res.setHistory(history);
+	res.setAccountUser(accountUser);
+	res.listenOtrSession();
+	res.setHistoryPath(new File(Environment.getExternalStorageDirectory(), historyPath));
+	Log.d(TAG, "getChat put " + key);
+	mChats.put(key, res);
+	return res;
     }
 
     @Override
     public ChatAdapter getChat(Contact contact) {
-    	String componentAddress = contact.getComponentID();	
-	return mChats.get(componentAddress).getChat(contact);
-	//TODO DA see if this is used
-	//return null;
+	String key = contact.getJIDWithRes();
+	return mChats.get(key);
     }
 
     /**
@@ -229,19 +212,17 @@ public class BeemChatManager extends IChatManager.Stub {
      * @throws RemoteException If a Binder remote-invocation error occurred.
      */
     public List<Contact> getOpenedChatList() throws RemoteException {
-    	//TODO DA see if this is hit
 	List<Contact> openedChats = new ArrayList<Contact>();
-//	IRoster mRoster = mService.getBind().getRoster();
-//
-//	for (ChatAdapter chat : mChats.values()) {
-//	    if (chat.getMessages().size() > 0) {
-//	    	//TODO fix this
-//		Contact t = mRoster.getContact(chat.getParticipant().getJID());
-//		if (t == null)
-//		    t = new Contact(chat.getParticipant().getJID());
-//		openedChats.add(t);
-//	    }
-//	}
+	IRoster mRoster = mService.getBind().getRoster();
+
+	for (ChatAdapter chat : mChats.values()) {
+	    if (chat.getMessages().size() > 0) {
+		Contact t = mRoster.getContact(chat.getParticipant().getJID());
+		if (t == null)
+		    t = new Contact(chat.getParticipant().getJID());
+		openedChats.add(t);
+	    }
+	}
 	return openedChats;
     }
 
@@ -258,13 +239,12 @@ public class BeemChatManager extends IChatManager.Stub {
      * A listener for all the chat creation event that happens on the connection.
      * @author darisk
      */
-    public class ChatListener extends IMessageListener.Stub implements ChatManagerListener {
-    	BeemChatManager mParent;
+    private class ChatListener extends IMessageListener.Stub implements ChatManagerListener {
+
 	/**
 	 * Constructor.
 	 */
-	public ChatListener(BeemChatManager parent) {
-		mParent = parent;
+	public ChatListener() {
 	}
 
 	/**
@@ -272,17 +252,17 @@ public class BeemChatManager extends IChatManager.Stub {
 	 */
 	@Override
 	public void chatCreated(Chat chat, boolean locally) {
-	    IChat newchat = getChat(chat,mParent);
+	    IChat newchat = getChat(chat);
 	    Log.d(TAG, "Chat" + chat.toString() + " created locally " + locally + " with " + chat.getParticipant());
 	    try {
-		//newchat.addMessageListener(mChatListener);
-		final int n = mParent.mRemoteChatCreationListeners.beginBroadcast();
+		newchat.addMessageListener(mChatListener);
+		final int n = mRemoteChatCreationListeners.beginBroadcast();
 
 		for (int i = 0; i < n; i++) {
-		    IChatManagerListener listener = mParent.mRemoteChatCreationListeners.getBroadcastItem(i);
+		    IChatManagerListener listener = mRemoteChatCreationListeners.getBroadcastItem(i);
 		    listener.chatCreated(newchat, locally);
 		}
-		mParent.mRemoteChatCreationListeners.finishBroadcast();
+		mRemoteChatCreationListeners.finishBroadcast();
 	    } catch (RemoteException e) {
 		// The RemoteCallbackList will take care of removing the
 		// dead listeners.
@@ -296,21 +276,15 @@ public class BeemChatManager extends IChatManager.Stub {
 	 * @return A Chat activity PendingIntent
 	 */
 	private PendingIntent makeChatIntent(IChat chat) {
-	    Intent chatIntent = new Intent(mParent.mService, com.beem.project.beem.ui.Chat.class);
+	    Intent chatIntent = new Intent(mService, com.beem.project.beem.ui.Chat.class);
 	    chatIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP
 		| Intent.FLAG_ACTIVITY_NEW_TASK);
 	    try {
-	    	//TODO DA - see about this
-	    	Uri uri = Uri.parse(chat.getThreadID());
-	    	//chatIntent.setData(chat.getParticipant().toUri());
-	    chatIntent.putExtra("THREADID", chat.getThreadID());
-	    chatIntent.putExtra("COMPID", chat.getParticipant().getComponentID());
-		//chatIntent.setData(uri);
-	    	//chatIntent.setData(chat.getThreadID());
+		chatIntent.setData(chat.getParticipant().toUri());
 	    } catch (RemoteException e) {
 		Log.e(TAG, e.getMessage());
 	    }
-	    PendingIntent contentIntent = PendingIntent.getActivity(mParent.mService, 0, chatIntent,
+	    PendingIntent contentIntent = PendingIntent.getActivity(mService, 0, chatIntent,
 		PendingIntent.FLAG_UPDATE_CURRENT);
 	    return contentIntent;
 	}
@@ -321,23 +295,19 @@ public class BeemChatManager extends IChatManager.Stub {
 	 * @param msgBody the body of the new message
 	 */
 	private void notifyNewChat(IChat chat, String msgBody) {
-	    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mParent.mService);
+	    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mService);
 	    try {
+	    	CharSequence tickerText = chat.getParticipant().getJID();
 //		CharSequence tickerText = mService.getBind().getRoster().getContact(chat.getParticipant().getJID())
 //		    .getName();
-		//the user that contacted us is not in our rooster
-	    //TODO DA we should get the from from within the message
-	    TxtPacket pkg = new TxtPacket(msgBody);
-	    //String something = chat.getParticipant().getJID(); 
-		CharSequence tickerText = pkg.getFromAddress();
 		Notification notification = new Notification(android.R.drawable.stat_notify_chat, tickerText, System
 		    .currentTimeMillis());
 		notification.flags = Notification.FLAG_AUTO_CANCEL | Notification.FLAG_SHOW_LIGHTS;
-		//DA get real message from the body
-		
-		notification.setLatestEventInfo(mParent.mService, tickerText, pkg.getBody(), makeChatIntent(chat));
-		mParent.mService.sendNotification(tickerText.hashCode(), notification);
-	    } catch (Exception e) {
+		TxtPacket pkg = new TxtPacket(msgBody);
+		String body = pkg.getBody();
+		notification.setLatestEventInfo(mService, tickerText, body, makeChatIntent(chat));
+		mService.sendNotification(chat.getParticipant().getJID().hashCode(), notification);
+	    } catch (RemoteException e) {
 		Log.e(TAG, e.getMessage());
 	    }
 	}
@@ -349,22 +319,15 @@ public class BeemChatManager extends IChatManager.Stub {
 	public void processMessage(final IChat chat, Message message) {
 	    try {
 		String body = message.getBody();
-		TxtPacket decoded = new TxtPacket(body);	
-		String keyForSyndication = chat.getParticipant().getJID();
-		String keyForInternalChat = decoded.getFromAddress();
 		if (!chat.isOpen() && body != null) {
 		    if (chat instanceof ChatAdapter) {
-		    	//TODO see if ever happening
-		    	String x = "";
-		    //	mChats.getChat(keyForSyndication)
-			//mChats.put(newFrom, (ChatAdapter) chat);
+			mChats.put(chat.getParticipant().getJID(), (ChatAdapter) chat);
 		    }
-		    notifyNewChat(chat, body);   
-		}		
+		    notifyNewChat(chat, body);
+		}
 	    } catch (RemoteException e) {
 		Log.e(TAG, e.getMessage());
 	    }
-	    
 	}
 
 	@Override
@@ -399,19 +362,18 @@ public class BeemChatManager extends IChatManager.Stub {
 
 	@Override
 	public void presenceChanged(Presence presence) {
-	    //TODO DA see if hit
-		String key = StringUtils.parseBareAddress(presence.getFrom());
+	    String key = StringUtils.parseBareAddress(presence.getFrom());
 	    if (!mChats.containsKey(key)) {
 		return;
 	    }
 
-//	    if (Status.getStatusFromPresence(presence) >= Status.CONTACT_STATUS_DISCONNECT) {
-//		try {
-//		    mChats.get(key).localEndOtrSession();
-//		} catch (OtrException e) {
-//		    e.printStackTrace();
-//		}
-//	    }
+	    if (Status.getStatusFromPresence(presence) >= Status.CONTACT_STATUS_DISCONNECT) {
+		try {
+		    mChats.get(key).localEndOtrSession();
+		} catch (OtrException e) {
+		    e.printStackTrace();
+		}
+	    }
 	}
 
     }
