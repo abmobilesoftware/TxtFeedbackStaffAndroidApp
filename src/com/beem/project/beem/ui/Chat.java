@@ -436,11 +436,17 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		if (m.getBody() != null) {
 		    if (lastMessage == null || !fromBareJid.equals(lastMessage.getBareJid())) {
 		    	//TODO DA fix this
+		    	//DA here we would convert the 
 		    	lastMessage = new MessageText(fromBareJid, name, m.getBody(), false, m.getTimestamp());			
 		    	result.add(lastMessage);
 		    } else {
 		    	//TODO DA fix this
-		    	lastMessage.setMessage(lastMessage.getMessage().concat("\n" + m.getBody()));
+		    	//since messages are in XML format we need to concatenate their bodies
+		    	TxtPacket prevMsg = new TxtPacket(lastMessage.getMessage());
+		    	TxtPacket newMsg = new TxtPacket(m.getBody());		    	
+		    	String body = prevMsg.getBody().concat("\n" + newMsg.getBody());
+		    	prevMsg.setBody(body);
+		    	lastMessage.setMessage(prevMsg.toXML());
 		    }
 		}
 	    }
@@ -808,8 +814,10 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    msgName.setText(msg.getName());
 	    msgName.setTextColor(Color.WHITE);
 	    msgName.setError(null);
-	    TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);	    
-	    msgText.setText(msg.getMessage());
+	    TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);	
+	    //DA the messages are in XML format - we need text format
+	    TxtPacket pkg = new TxtPacket(msg.getMessage());	    
+	    msgText.setText(pkg.getBody());//msg.getMessage());
 	    registerForContextMenu(msgText);
 	    TextView msgDate = (TextView) sv.findViewById(R.id.chatmessagedate);
 	    if (msg.getTimestamp() != null) {
@@ -981,7 +989,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		boolean isSMSBased = mIsSMSBased;//false;
 	    Message msgToSend = new Message(mContact.getJIDWithRes(),convID, isSMSBased, Message.MSG_TYPE_CHAT);
 	    msgToSend.setBody(inputContent);
-
+	    
 	    try {
 		if (mChat == null) {
 		    mChat = mChatManager.createChat(mContact, mMessageListener);
@@ -998,10 +1006,16 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		lastMessage = mListMessages.get(mListMessages.size() - 1);
 
 	    if (lastMessage != null && lastMessage.getName().equals(self)) {
-		lastMessage.setMessage(lastMessage.getMessage().concat("\n" + inputContent));
-		lastMessage.setTimestamp(new Date());
-	    } else
-		mListMessages.add(new MessageText(self, self, inputContent, false, new Date()));
+	    	//DA last message is in XML format - append to body
+	    	TxtPacket prevMsg = new TxtPacket(lastMessage.getMessage());	    			    
+	    	String body = prevMsg.getBody().concat("\n" + inputContent);
+	    	prevMsg.setBody(body);
+	    	lastMessage.setMessage(prevMsg.toXML());	    	
+	    	lastMessage.setMessage(lastMessage.getMessage().concat("\n" + inputContent));
+	    	lastMessage.setTimestamp(new Date());
+	    } else {
+	    	mListMessages.add(new MessageText(self, self, msgToSend.getAsTxtPacket().toXML(), false, new Date()));
+	    }
 	    mMessagesListAdapter.notifyDataSetChanged();
 	    mInputField.setText(null);
 	}
