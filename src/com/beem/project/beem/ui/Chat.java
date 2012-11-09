@@ -311,46 +311,46 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 		}
 		this.finish();
 		break;
-	    case R.id.chat_menu_start_otr_session:
-		try {
-		    if (mChat == null) {
-			mChat = mChatManager.createChat(mContact, mMessageListener);
-			if (mChat != null) {
-			    mChat.setOpen(true);
-			}
-		    }
-		    mChat.startOtrSession();
-		} catch (RemoteException e) {
-		    Log.e(TAG, "start otr chats failed " + mChat, e);
-		}
-		break;
-	    case R.id.chat_menu_stop_otr_session:
-		try {
-		    if (mChat == null) {
-			mChat = mChatManager.createChat(mContact, mMessageListener);
-			if (mChat != null) {
-			    mChat.setOpen(true);
-			}
-		    }
-		    mChat.endOtrSession();
-		} catch (RemoteException e) {
-		    Log.e(TAG, "close otr chats failed " + mChat, e);
-		}
-		break;
-	    case R.id.chat_menu_otr_verify_key:
-		try {
-		    if (mChat == null) {
-			mChat = mChatManager.createChat(mContact, mMessageListener);
-			if (mChat != null) {
-			    mChat.setOpen(true);
-			}
-		    }
-		    Dialog otrDialog = new DisplayOtrFingerprint(this, mChat).create();
-		    otrDialog.show();
-		} catch (RemoteException e) {
-		    Log.e(TAG, "getting local otr key failed " + mChat, e);
-		}
-		break;
+//	    case R.id.chat_menu_start_otr_session:
+//		try {
+//		    if (mChat == null) {
+//			mChat = mChatManager.createChat(mContact, mMessageListener);
+//			if (mChat != null) {
+//			    mChat.setOpen(true);
+//			}
+//		    }
+//		    mChat.startOtrSession();
+//		} catch (RemoteException e) {
+//		    Log.e(TAG, "start otr chats failed " + mChat, e);
+//		}
+//		break;
+//	    case R.id.chat_menu_stop_otr_session:
+//		try {
+//		    if (mChat == null) {
+//			mChat = mChatManager.createChat(mContact, mMessageListener);
+//			if (mChat != null) {
+//			    mChat.setOpen(true);
+//			}
+//		    }
+//		    mChat.endOtrSession();
+//		} catch (RemoteException e) {
+//		    Log.e(TAG, "close otr chats failed " + mChat, e);
+//		}
+//		break;
+//	    case R.id.chat_menu_otr_verify_key:
+//		try {
+//		    if (mChat == null) {
+//			mChat = mChatManager.createChat(mContact, mMessageListener);
+//			if (mChat != null) {
+//			    mChat.setOpen(true);
+//			}
+//		    }
+//		    Dialog otrDialog = new DisplayOtrFingerprint(this, mChat).create();
+//		    otrDialog.show();
+//		} catch (RemoteException e) {
+//		    Log.e(TAG, "getting local otr key failed " + mChat, e);
+//		}
+//		break;
 	    default:
 		return false;
 	}
@@ -659,7 +659,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    name += "(" + res + ")";
 	if (!mCompact) {
 	    if (!(mContactNameTextView.getText().toString().equals(name)))
-		mContactNameTextView.setText(name);
+		mContactNameTextView.setText(Contact.getFriendlyNameFromName(name));
 	    //Check for a contact status message update
 	    if (!(mContactStatusMsgTextView.getText().toString().equals(mContact.getMsgState()))) {
 		mContactStatusMsgTextView.setText(mContact.getMsgState());
@@ -815,7 +815,7 @@ public class Chat extends Activity implements TextView.OnEditorActionListener {
 	    DateFormat df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 	    MessageText msg = mListMessages.get(position);
 	    TextView msgName = (TextView) sv.findViewById(R.id.chatmessagename);
-	    msgName.setText(msg.getName());
+	    msgName.setText(Contact.getFriendlyNameFromName(msg.getName()));
 	    msgName.setTextColor(Color.WHITE);
 	    msgName.setError(null);
 	    TextView msgText = (TextView) sv.findViewById(R.id.chatmessagetext);	

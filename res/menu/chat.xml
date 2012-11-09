@@ -7,15 +7,15 @@
 	</group>
 	<item android:id="@+id/chat_menu_close_chat" android:visible="true"
 		android:title="@string/chat_menu_close_chat" android:icon="@drawable/ic_menu_end_conversation" />
-	<item android:id="@+id/chat_menu_otr_submenu" android:visible="true"
-		android:title="@string/chat_menu_otr_submenu" android:icon="@drawable/logo_encryption">
-		<menu>
-			<item android:id="@+id/chat_menu_start_otr_session"
-				android:visible="true" android:title="@string/chat_menu_start_otr_session" />
-			<item android:id="@+id/chat_menu_stop_otr_session"
-				android:visible="true" android:title="@string/chat_menu_stop_otr_session" />
-			<item android:id="@+id/chat_menu_otr_verify_key" android:visible="true"
-				android:title="@string/chat_menu_otr_verify_key" />
-		</menu>
-	</item>
+<!-- 	<item android:id="@+id/chat_menu_otr_submenu" android:visible="true" -->
+<!-- 		android:title="@string/chat_menu_otr_submenu" android:icon="@drawable/logo_encryption"> -->
+<!-- 		<menu> -->
+<!-- 			<item android:id="@+id/chat_menu_start_otr_session" -->
+<!-- 				android:visible="true" android:title="@string/chat_menu_start_otr_session" /> -->
+<!-- 			<item android:id="@+id/chat_menu_stop_otr_session" -->
+<!-- 				android:visible="true" android:title="@string/chat_menu_stop_otr_session" /> -->
+<!-- 			<item android:id="@+id/chat_menu_otr_verify_key" android:visible="true" -->
+<!-- 				android:title="@string/chat_menu_otr_verify_key" /> -->
+<!-- 		</menu> -->
+<!-- 	</item> -->
 </menu>
