@@ -297,7 +297,9 @@ public class BeemChatManager extends IChatManager.Stub {
 	private void notifyNewChat(IChat chat, String msgBody) {
 	    SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mService);
 	    try {
-	    	CharSequence tickerText = chat.getParticipant().getJID();
+	    	//TODO DA 
+	    	
+	    	CharSequence tickerText = Contact.getFriendlyNameFromName(chat.getParticipant().getJID());
 //		CharSequence tickerText = mService.getBind().getRoster().getContact(chat.getParticipant().getJID())
 //		    .getName();
 		Notification notification = new Notification(android.R.drawable.stat_notify_chat, tickerText, System

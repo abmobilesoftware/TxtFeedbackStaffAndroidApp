@@ -659,7 +659,7 @@ public class ContactList extends Activity {
 	private void bindView(View view, Contact curContact) {
 	    if (curContact != null) {
 		TextView v = (TextView) view.findViewById(R.id.contactlistpseudo);
-		v.setText(curContact.getName());
+		v.setText(curContact.getFriendlyName());
 		v = (TextView) view.findViewById(R.id.contactlistmsgperso);
 		v.setText(curContact.getMsgState());
 		ImageView img = (ImageView) view.findViewById(R.id.avatar);

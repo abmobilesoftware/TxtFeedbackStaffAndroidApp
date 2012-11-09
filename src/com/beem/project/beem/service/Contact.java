@@ -86,14 +86,8 @@ public class Contact implements Parcelable {
     private final List<String> mGroups = new ArrayList<String>();
     private String mName;
     private String mAvatarId;
-    private static final String defaultComponentAddress = "default";
-    private String mComponentID;
 
-    public String getComponentID() {
-		return mComponentID;
-	}
-
-	/**
+    /**
      * Construct a contact from a parcel.
      * @param in parcel to use for construction
      */
@@ -114,7 +108,7 @@ public class Contact implements Parcelable {
      * Constructor.
      * @param jid JID of the contact
      */
-    public Contact(final String jid, String componentID) {
+    public Contact(final String jid) {
 	mJID = StringUtils.parseBareAddress(jid);
 	mName = mJID;
 	mStatus = Status.CONTACT_STATUS_DISCONNECT;
@@ -122,13 +116,8 @@ public class Contact implements Parcelable {
 	mRes = new ArrayList<String>();
 	String res = StringUtils.parseResource(jid);
 	mSelectedRes = res;
-	mComponentID = componentID;
 	if (!"".equals(res))
 	    mRes.add(res);
-    }
-    
-    public Contact(final String jid)
-    {this(jid,defaultComponentAddress);    	
     }
 
     /**
@@ -284,6 +273,20 @@ public class Contact implements Parcelable {
      */
     public String getName() {
 	return mName;
+    }
+    
+    public String getFriendlyName() {    	
+    	return getFriendlyNameFromName(this.getName());
+    }
+    
+    public static String getFriendlyNameFromName(String name ){
+    	if (name.length() >=8 ) {
+    	String friendlyName =name.substring(0, 7) + "...";
+    	return friendlyName;
+    	} else {
+    	return name;
+    	}
+    	
     }
 
     /**

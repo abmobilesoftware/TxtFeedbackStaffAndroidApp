@@ -73,7 +73,7 @@ public class ChatList extends AlertDialog.Builder {
 
 	    int i = 0;
 	    for (Contact c : openedChats) {
-		items[i++] = c.getName();
+		items[i++] = Contact.getFriendlyNameFromName(c.getName());
 	    }
 	    setTitle(R.string.chat_dialog_change_chat_title);
 	    setItems(items, new DialogInterface.OnClickListener() {
