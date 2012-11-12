@@ -58,15 +58,7 @@
 		<EditTextPreference android:name="password"
 			android:singleLine="true" android:password="true" android:summary="@string/SettingsPassword"
 			android:title="@string/settings_account_password" android:key="account_password" />
-	</PreferenceCategory>
-	<PreferenceCategory android:title="@string/user_preferences_advanced">
-		<EditTextPreference android:key="connection_resource"
-			android:title="@string/SettingsResourceTitle" android:summary="@string/SettingsResourceSummary"
-			android:defaultValue="Beem" />
-		<EditTextPreference android:key="connection_priority"
-			android:title="@string/SettingsPriorityTitle" android:summary="@string/SettingsPrioritySummary"
-			android:numeric="signed" android:defaultValue="0" />
-	</PreferenceCategory>
+	</PreferenceCategory>		
 	<PreferenceCategory android:title="@string/network_preferences">
 		<PreferenceScreen android:key="proxy" android:title="@string/SettingsProxy"
 			android:summary="@string/settings_proxy_sum">

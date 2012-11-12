@@ -168,9 +168,9 @@ public class ContactList extends Activity {
 	    case R.id.contact_list_menu_settings:
 		startActivity(new Intent(this, Settings.class));
 		return true;
-	    case R.id.contact_list_menu_add_contact:
-		startActivity(new Intent(ContactList.this, AddContact.class));
-		return true;
+//	    case R.id.contact_list_menu_add_contact:
+//		startActivity(new Intent(ContactList.this, AddContact.class));
+//		return true;
 	    case R.id.menu_change_status:
 		startActivity(new Intent(ContactList.this, ChangeStatus.class));
 		return true;

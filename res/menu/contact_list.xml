@@ -1,8 +1,4 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/contact_list_menu_add_contact"
-		android:visible="true"
-		android:title="@string/contact_list_menu_add_contact"
-		android:icon="@drawable/ic_menu_add" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">    
 	<item android:id="@+id/menu_change_status"
 	    android:visible="true"
 	    android:title="@string/contact_list_menu_status"/>

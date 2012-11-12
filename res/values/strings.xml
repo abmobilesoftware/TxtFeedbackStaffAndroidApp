@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Generic terms -->
-	<string name="app_name">Beem for TxtFeedback</string>
+	<string name="app_name">TxtFeedback</string>
 	<string name="OkButton">Ok</string>
 	<string name="ClearButton">Clear</string>
 	<string name="CancelButton">Cancel</string>
@@ -15,7 +15,7 @@
 	<string name="AccountConfigureManualConfiguration">Manual Configuration</string>
 
 	<!--  Beem class -->
-	<string name="BeemJabberID">Jabber ID</string>
+	<string name="BeemJabberID">TxtFeedback ID</string>
 
 	<!--  BeemApplication class -->
 	<string name="BeemApplicationConnect">Connecting...</string>
@@ -31,7 +31,7 @@
 	<string name="CDInfos">Manage User</string>
 
 	<!-- AddContact class -->
-	<string name="AddCActTitle">Beem - Add a contact</string>
+	<string name="AddCActTitle">TxtFeedback - Add a contact</string>
 
 	<string name="AddCLogin">Username</string>
 	<string name="AddCAlias">Alias</string>
@@ -44,7 +44,7 @@
 	<string name="AddCContactAlready">Contact already exist</string>
 
 	<!--  ChangeStatus class -->
-	<string name="ChangeStatusActTitle">Beem for TxtFeedback - Change my status</string>
+	<string name="ChangeStatusActTitle">TxtFeedback - Change my status</string>
 	<string name="ChangeStatusType">My status</string>
 	<string name="ChangeStatusMessage">My personal message</string>
 	<string name="OpenContactList">Open contact list</string>
@@ -81,8 +81,8 @@
 	<string name="SettingsAdvancedSpecOpt">Check this box if you want to use a specific server for your connection</string>
 	<string name="SettingsAdvancedAddOpt">Edit the server address</string>
 	<string name="SettingsAdvancedPortOpt">Edit the server port</string>
-	<string name="SettingsResourceTitle">Resource</string>
-	<string name="SettingsPriorityTitle">Priority</string>
+<!-- 	<string name="SettingsResourceTitle">Resource</string> -->
+<!-- 	<string name="SettingsPriorityTitle">Priority</string> -->
 	<string name="SettingsResourceSummary">Set the XMPP resource of your client </string>
 	<string name="SettingsPrioritySummary">Set the priority of your client</string>
 	<string name="contact_list_preferences">Buddy list</string>
@@ -149,21 +149,21 @@
 	<string name="BeemChatManagerNewMessage">You\'ve a new message</string>
 
 	<!--  BeemBroadcastReceiver class -->
-	<string name="BeemBroadcastReceiverDisconnect">BEEM for TxtFeedback: You have been disconnected</string>
+	<string name="BeemBroadcastReceiverDisconnect">TxtFeedback: You have been disconnected</string>
 
 	<!--  XmppConnectionAdapter class -->
 	<string name="AcceptContactRequest">%s has just added you to his/her buddy list.</string>
 	<string name="AcceptContactRequestFrom">Authorize %s to contact you.</string>
 
 	<!-- Activities -->
-	<string name="login_tag">Beem for TxtFeedback - Login Activity</string>
-	<string name="edit_settings_name">Beem for TxtFeedback - Settings</string>
-	<string name="edit_settings_tag">Beem for TxtFeedback - EditSettings Activity</string>
-	<string name="create_account_name">Beem for TxtFeedback - Create an account</string>
-	<string name="create_account_tag">Beem for TxtFeedback - CreateAccount Activity</string>
-	<string name="contact_list_name">Beem for TxtFeedback - Contacts</string>
-	<string name="contact_list_tag">Beem for TxtFeedback - ContactList Activity</string>
-	<string name="user_info_name">Beem for TxtFeedback - User Info</string>
+	<string name="login_tag">TxtFeedback - Login Activity</string>
+	<string name="edit_settings_name">TxtFeedback - Settings</string>
+	<string name="edit_settings_tag">TxtFeedback - EditSettings Activity</string>
+	<string name="create_account_name">TxtFeedback - Create an account</string>
+	<string name="create_account_tag">TxtFeedback - CreateAccount Activity</string>
+	<string name="contact_list_name">TxtFeedback - Contacts</string>
+	<string name="contact_list_tag">TxtFeedback - ContactList Activity</string>
+	<string name="user_info_name">TxtFeedback - User Info</string>
 
 	<!-- Buttons -->
 	<string name="button_create_account">Create this account</string>
@@ -177,10 +177,10 @@
 	<string name="login_menu_create_account">Create an account</string>
 	<string name="login_menu_settings">Settings</string>
 	<string name="login_menu_about">About</string>
-	<string name="login_about_title">Beem for TxtFeedback %s - About</string>
+	<string name="login_about_title">TxtFeedback %s - About</string>
 	<string name="login_about_msg">
-		Beem is an EPITECH Innovative Project. Visit us at
-		http://www.beem-project.com !
+		TxtFeedback for Android is based on Beem for Android (an EPITECH Innovative Project). For detais visit us at
+		http://txtfeedback.net/txtfeedback-for-android/ !
 	</string>
 	<string name="login_about_button">Close</string>
 	<string name="login_settings_button">Settings</string>
@@ -208,7 +208,7 @@
 	<!-- EditSettings Activity Categories -->
 	<string name="general_preferences">General preferences</string>
 	<string name="user_preferences">User settings (required)</string>
-	<string name="user_preferences_advanced">User settings advanced (optional)</string>
+<!-- 	<string name="user_preferences_advanced">User settings advanced (optional)</string> -->
 	<string name="network_preferences">Network options</string>
 	<string name="proxy_proxy_settings">Proxy settings</string>
 	<string name="proxy_user_settings">Proxy settings</string>
@@ -226,7 +226,7 @@
 
 
 	<!-- wizard activities -->
-	<string name="account_wizard_text1"><b>Welcome on BEEM for TxtFeedback.</b>\n\nYou have not configured an XMPP (Jabber) account yet.\nChoose one of the following options :</string>
+	<string name="account_wizard_text1"><b>Welcome to TxtFeedback.</b>\n\nYou have not configured an TxtFeedback account yet.\nChoose one of the following options :</string>
 	<string name="account_wizard_configure_text"><b>Please fill in the data for your existing account</b></string>
 	<string name="account_wizard_configure_account">I already have an account I want to use</string>
 	<string name="account_wizard_create_account">I want to register for a new account</string>
@@ -237,14 +237,14 @@
 	<string name="create_account_err_dialog_settings_button">Change my settings</string>
 	<string name="create_account_close_dialog_button">Close</string>
 	<string name="create_account_successfull_after">account %s has been created successfully</string>
-	<string name="create_account_err_username">Bad JabberID</string>
+	<string name="create_account_err_username">Bad TxtFeedback ID</string>
 	<string name="create_account_err_passwords">Passwords do not match.</string>
 	<string name="create_account_username">Username</string>
 	<string name="create_account_password">Password</string>
 	<string name="create_account_confirm_password">Confirm password</string>
 
 	<!-- ContactList Activity  -->
-	<string name="contact_list_menu_add_contact">Add a contact</string>
+<!-- 	<string name="contact_list_menu_add_contact">Add a contact</string> -->
 	<string name="contact_list_menu_status">Change status</string>
 	<string name="contact_list_menu_settings">Settings</string>
 	<string name="contact_list_menu_disconnect">Disconnect</string>
@@ -264,7 +264,7 @@
 	<string name="userinfo_no">No</string>
 	<string name="userinfo_sureresend">Are you sure you want to resend invit?</string>
 
-	<string name="chat_name">Beem for TxtFeedback - Chat</string>
+	<string name="chat_name">TxtFeedback - Chat</string>
 	<string name="chat_input_default_value">Type your message</string>
 	<string name="chat_self">Me</string>
 	<string name="chat_error">Error</string>
@@ -299,7 +299,7 @@
 	<string name="contact_status_msg_xa">Unavailable</string>
 	<string name="contact_status_msg_offline">Disconnected</string>
 
-	<string name="privacy_list_name">Beem for TxtFeedback - Manage my privacy lists</string>
+	<string name="privacy_list_name">TxtFeedback - Manage my privacy lists</string>
 	<string name="privacy_list_no_data">There aren\'t any privacy list registered.</string>
 	<string name="privacy_list_menu_create">Create a privacy list</string>
 	<string name="privacy_list_create_dialog_title">Create a privacy list</string>
