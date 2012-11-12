@@ -100,10 +100,7 @@ public class Subscription extends Activity {
 	setContentView(R.layout.subscription);
 	findViewById(R.id.SubscriptionAccept).setOnClickListener(mClickListener);
 	findViewById(R.id.SubscriptionRefuse).setOnClickListener(mClickListener);
-	Bundle extras = getIntent().getExtras();
-	String threadID = extras.getString("THREADID");
-	String compID = extras.getString("COMPID");
-	Contact c = new Contact(threadID,compID);
+	Contact c = new Contact(getIntent().getData());
 	mContact = c.getJID();
 	TextView tv = (TextView) findViewById(R.id.SubscriptionText);
 	String str = String.format(getString(R.string.SubscriptText), mContact);
