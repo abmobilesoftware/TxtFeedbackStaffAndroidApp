@@ -63,12 +63,7 @@ interface IChat {
 	 * @return the participant
 	 */
 	Contact getParticipant();
-	
-	/**
-	 * Get the threadID of the chat
-	 * @return the threadID
-	 */
-	String getThreadID();
+
 	/**
 	 * Add a message listener.
 	 * @param listener the listener to add.
