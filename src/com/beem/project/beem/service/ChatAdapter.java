@@ -132,15 +132,14 @@ public class ChatAdapter extends IChat.Stub {
      * private method for sending message.
      * @param message the message to send
      */
-    private com.beem.project.beem.service.Message transferMessage(com.beem.project.beem.service.Message message) {
+    private com.beem.project.beem.service.Message transferMessage(com.beem.project.beem.service.Message message) {    	//
 	org.jivesoftware.smack.packet.Message send = new org.jivesoftware.smack.packet.Message();
 	String msgBody = message.getBody();
 	String convID = mConvID;
 	boolean isSMSBased = mIsSMSBased;
 	String[] fromTo = TxtFeedbackUtilities.getFromToConversationID(convID);
-	String to = fromTo[0]+"@txtfeedback.net";
-	String from = fromTo[1]+"@compdev.txtfeedback.net";
-			//"7ea8a59d948d42c38cd6bce4b4ca883a-abmobdemo1";
+	String to = fromTo[0]+ com.beem.project.beem.service.Message.cTxtFeedbackSuffix;
+	String from = fromTo[1]+com.beem.project.beem.service.Message.cTxtFeedbackComponentSuffix;
 	Date now = new Date();
 	boolean forStaff = false;
 	TxtPacket pkg = new TxtPacket(from,to,now,msgBody,forStaff,isSMSBased,convID);

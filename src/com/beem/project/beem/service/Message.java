@@ -46,6 +46,7 @@ package com.beem.project.beem.service;
 import org.jivesoftware.smack.packet.XMPPError;
 import org.jivesoftware.smackx.packet.DelayInformation;
 import org.jivesoftware.smack.packet.PacketExtension;
+import org.xbill.DNS.MDRecord;
 
 import com.beem.project.beem.utils.TxtFeedbackUtilities;
 import com.beem.project.beem.utils.TxtPacket;
@@ -59,6 +60,8 @@ import java.util.Date;
  * @author darisk
  */
 public class Message implements Parcelable {
+	public final static String cTxtFeedbackSuffix = "@txtfeedback.net";
+	public final static String cTxtFeedbackComponentSuffix = "@devbeem.txtfeedback.net";
 
     /** Normal message type. Theese messages are like an email, with subject. */
     public static final int MSG_TYPE_NORMAL = 100;
@@ -97,33 +100,8 @@ public class Message implements Parcelable {
     private String mThread;
     private Date mTimestamp;
     private String mConvID;
-    
-    public String getConvID() {
-		return mConvID;
-	}
-
-	public void setConvID(String convID) {
-		this.mConvID = convID;
-	}
-
-	private String mConvFrom;
-    public String getConvFrom() {
-		return mConvFrom;
-	}
-
-	public void setConvFrom(String convFrom) {
-		this.mConvFrom = convFrom;
-	}
-
-	public String getConvTo() {
-		return mConvTo;
-	}
-
-	public void setConvTo(String convTo) {
-		this.mConvTo = convTo;
-	}
-
-	private String mConvTo;
+    private String mConvTo;
+    private boolean mIsSMSBased;
 
     // TODO ajouter l'erreur
 
@@ -132,7 +110,7 @@ public class Message implements Parcelable {
      * @param to the destinataire of the message
      * @param type the message type
      */
-    public Message(final String to, final String convID, final int type) {
+    public Message(final String to, final String convID, final boolean isSMSBased, final int type) {
 	mTo = to;
 	mType = type;
 	mBody = "";
@@ -140,27 +118,27 @@ public class Message implements Parcelable {
 	mThread = "";
 	mFrom = null;
 	mTimestamp = new Date();
-	mConvID= convID;
+	mConvID = convID;
 	String[] fromTo = TxtFeedbackUtilities.getFromToConversationID(convID);
-	//TODO fix the case with SMS
-	mConvFrom = fromTo[0] + "@txtfeedback.net";	
-	mConvTo = fromTo[1] + "@moderator.txtfeedback.net";
+	mConvFrom = fromTo[0] + cTxtFeedbackSuffix;		
+	mConvTo = fromTo[1] + cTxtFeedbackComponentSuffix;
+	mIsSMSBased = isSMSBased;
     }
 
     /**
      * Constructor a message of type chat.
      * @param to the destinataire of the message
      */
-    public Message(final String to, final String convID) {
-	this(to, convID, MSG_TYPE_CHAT);
+    public Message(final String to, final String convID, final boolean isSMSBased) {
+	this(to, convID, isSMSBased, MSG_TYPE_CHAT);
     }
 
     /**
      * Construct a message from a smack message packet.
      * @param smackMsg Smack message packet
      */
-    public Message(final org.jivesoftware.smack.packet.Message smackMsg, final String convID) {
-	this(smackMsg.getTo(), convID);
+    public Message(final org.jivesoftware.smack.packet.Message smackMsg,String convID, boolean isSMSBased) {
+	this(smackMsg.getTo(),convID, isSMSBased);
 	switch (smackMsg.getType()) {
 	    case chat:
 		mType = MSG_TYPE_CHAT;
@@ -355,10 +333,42 @@ public class Message implements Parcelable {
 	return 0;
     }
     
-    public TxtPacket asTxtPacket() {
-    	//TODO add sms support
-    	TxtPacket pkg = new TxtPacket(mConvFrom,mConvTo,mTimestamp,mBody,false,false,mConvID);
-    	return pkg;
-    }
+    public String getConvID() {
+		return mConvID;
+	}
+
+	public void setConvID(String convID) {
+		this.mConvID = convID;
+	}
+
+	private String mConvFrom;
+   public String getConvFrom() {
+		return mConvFrom;
+	}
+
+	public void setConvFrom(String convFrom) {
+		this.mConvFrom = convFrom;
+	}
+
+	public String getConvTo() {
+		return mConvTo;
+	}
+
+	public void setConvTo(String convTo) {
+		this.mConvTo = convTo;
+	}
+	
+	public Boolean getIsSMSBased() {
+		return mIsSMSBased;
+	}
+
+	public void setIsSMSBased(Boolean isSMSBased) {
+		this.mIsSMSBased = isSMSBased;
+	}
+	
+	public TxtPacket getAsTxtPacket() {		
+		TxtPacket pkg = new TxtPacket(mConvFrom, mConvTo,mTimestamp,mBody,false,false,mConvID);
+		return pkg;
+	}
 
 }
