@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class TxtFeedbackUtilities {
 	private final static String cConversationSeparator = "-";
 	public static String createConvId(TxtPacket iInternalPacket) {
@@ -35,6 +37,7 @@ public class TxtFeedbackUtilities {
 	}
 		
 	public static String cleanupPhoneNumber(String phoneNumber) {
+		try {
 		//take into account that they could start with + or 00 - so we strip away any leading + or 00
 		String transformedString;
 		String pattern1 = "^00";
@@ -44,6 +47,9 @@ public class TxtFeedbackUtilities {
 		// delete +
 		transformedString = transformedString.replaceAll(pattern2, "");
 		return transformedString;
-	}
-	
-	}
+		} catch (Exception ex) {
+			Log.e("cleanupPhoneNumber",ex.getMessage(),ex);
+			return phoneNumber;	
+		}
+	}	
+}
