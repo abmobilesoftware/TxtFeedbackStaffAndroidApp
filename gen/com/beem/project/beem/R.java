@@ -108,17 +108,16 @@ public final class R {
         public static final int chatmessagetext=0x7f0a0019;
         public static final int configure_account=0x7f0a003b;
         public static final int configure_group=0x7f0a003a;
-        public static final int contact_list_context_menu_call_item=0x7f0a004a;
-        public static final int contact_list_context_menu_chat_item=0x7f0a0049;
-        public static final int contact_list_context_menu_user_info=0x7f0a004b;
-        public static final int contact_list_context_menu_userinfo_alias=0x7f0a004c;
-        public static final int contact_list_context_menu_userinfo_block=0x7f0a004f;
-        public static final int contact_list_context_menu_userinfo_delete=0x7f0a0050;
-        public static final int contact_list_context_menu_userinfo_group=0x7f0a004d;
-        public static final int contact_list_context_menu_userinfo_subscription=0x7f0a004e;
-        public static final int contact_list_menu_add_contact=0x7f0a0044;
-        public static final int contact_list_menu_chatlist=0x7f0a0046;
-        public static final int contact_list_menu_settings=0x7f0a0047;
+        public static final int contact_list_context_menu_call_item=0x7f0a0049;
+        public static final int contact_list_context_menu_chat_item=0x7f0a0048;
+        public static final int contact_list_context_menu_user_info=0x7f0a004a;
+        public static final int contact_list_context_menu_userinfo_alias=0x7f0a004b;
+        public static final int contact_list_context_menu_userinfo_block=0x7f0a004e;
+        public static final int contact_list_context_menu_userinfo_delete=0x7f0a004f;
+        public static final int contact_list_context_menu_userinfo_group=0x7f0a004c;
+        public static final int contact_list_context_menu_userinfo_subscription=0x7f0a004d;
+        public static final int contact_list_menu_chatlist=0x7f0a0045;
+        public static final int contact_list_menu_settings=0x7f0a0046;
         public static final int contactlist=0x7f0a001e;
         public static final int contactlist_banner=0x7f0a0020;
         public static final int contactlist_group=0x7f0a001f;
@@ -137,25 +136,25 @@ public final class R {
         public static final int create_account_username=0x7f0a0025;
         public static final int log_as_logo=0x7f0a002d;
         public static final int log_as_msg=0x7f0a002e;
-        public static final int login_menu_about=0x7f0a0055;
-        public static final int login_menu_login=0x7f0a0053;
-        public static final int login_menu_settings=0x7f0a0054;
+        public static final int login_menu_about=0x7f0a0054;
+        public static final int login_menu_login=0x7f0a0052;
+        public static final int login_menu_settings=0x7f0a0053;
         public static final int loginanim_cancel_button=0x7f0a0031;
         public static final int loginanim_logo_anim=0x7f0a002f;
         public static final int loginanim_status_text=0x7f0a0030;
         public static final int logo=0x7f0a0039;
         public static final int manual_setup=0x7f0a0040;
-        public static final int menu_change_status=0x7f0a0045;
-        public static final int menu_disconnect=0x7f0a0048;
+        public static final int menu_change_status=0x7f0a0044;
+        public static final int menu_disconnect=0x7f0a0047;
         public static final int next=0x7f0a003d;
-        public static final int privacy_list_context_menu_buddies_item=0x7f0a0057;
-        public static final int privacy_list_context_menu_delete_item=0x7f0a0059;
-        public static final int privacy_list_context_menu_groups_item=0x7f0a0058;
+        public static final int privacy_list_context_menu_buddies_item=0x7f0a0056;
+        public static final int privacy_list_context_menu_delete_item=0x7f0a0058;
+        public static final int privacy_list_context_menu_groups_item=0x7f0a0057;
         public static final int privacy_list_create_dialog_list_name=0x7f0a0034;
         public static final int privacy_list_create_dialog_list_name_label=0x7f0a0033;
-        public static final int privacy_list_menu_create=0x7f0a0056;
-        public static final int settings_menu_create_account=0x7f0a0051;
-        public static final int settings_menu_privacy_lists=0x7f0a0052;
+        public static final int privacy_list_menu_create=0x7f0a0055;
+        public static final int settings_menu_create_account=0x7f0a0050;
+        public static final int settings_menu_privacy_lists=0x7f0a0051;
     }
     public static final class layout {
         public static final int addcontact=0x7f030000;
@@ -204,8 +203,8 @@ public final class R {
   XmppConnectionAdapter class 
   XmppConnectionAdapter class 
          */
-        public static final int AcceptContactRequest=0x7f07007a;
-        public static final int AcceptContactRequestFrom=0x7f07007b;
+        public static final int AcceptContactRequest=0x7f070078;
+        public static final int AcceptContactRequestFrom=0x7f070079;
         /**   AccountConfigure class 
   AccountConfigure class 
   AccountConfigure class 
@@ -266,7 +265,7 @@ public final class R {
   BeemBroadcastReceiver class 
   BeemBroadcastReceiver class 
          */
-        public static final int BeemBroadcastReceiverDisconnect=0x7f070079;
+        public static final int BeemBroadcastReceiverDisconnect=0x7f070077;
         /**   BeemChatManager 
   BeemChatManager 
   BeemChatManager 
@@ -279,7 +278,7 @@ public final class R {
   BeemChatManager 
   BeemChatManager 
          */
-        public static final int BeemChatManagerNewMessage=0x7f070078;
+        public static final int BeemChatManagerNewMessage=0x7f070076;
         /**   Beem class 
   Beem class 
   Beem class 
@@ -323,10 +322,10 @@ public final class R {
          */
         public static final int CDChat=0x7f07000f;
         public static final int CDInfos=0x7f070011;
-        public static final int CLP_hidden_contact=0x7f070045;
-        public static final int CLP_hidden_contact_sum=0x7f070046;
-        public static final int CLP_hide_groups=0x7f070043;
-        public static final int CLP_hide_groups_sum=0x7f070044;
+        public static final int CLP_hidden_contact=0x7f070043;
+        public static final int CLP_hidden_contact_sum=0x7f070044;
+        public static final int CLP_hide_groups=0x7f070041;
+        public static final int CLP_hide_groups_sum=0x7f070042;
         public static final int CancelButton=0x7f070003;
         /**   ChangeStatus class 
   ChangeStatus class 
@@ -363,8 +362,8 @@ public final class R {
         public static final int SettingsAdvancedRecoDelay=0x7f070039;
         public static final int SettingsAdvancedSpecOpt=0x7f07003a;
         public static final int SettingsPassword=0x7f07002d;
-        public static final int SettingsPrioritySummary=0x7f070040;
-        public static final int SettingsPriorityTitle=0x7f07003e;
+        public static final int SettingsPrioritySummary=0x7f07003e;
+        public static final int SettingsPriorityTitle=0x7f07010f;
         public static final int SettingsProxy=0x7f07002e;
         public static final int SettingsProxyPassword=0x7f070036;
         public static final int SettingsProxyPort=0x7f070034;
@@ -374,8 +373,11 @@ public final class R {
         public static final int SettingsProxyType=0x7f070031;
         public static final int SettingsProxyTypeSummary=0x7f070032;
         public static final int SettingsProxyUser=0x7f070035;
-        public static final int SettingsResourceSummary=0x7f07003f;
-        public static final int SettingsResourceTitle=0x7f07003d;
+        /**  	<string name="SettingsResourceTitle">Resource</string> 
+ 	<string name="SettingsPriorityTitle">Priority</string> 
+         */
+        public static final int SettingsResourceSummary=0x7f07003d;
+        public static final int SettingsResourceTitle=0x7f07010e;
         /**  Settings class 
  Settings class 
  Settings class 
@@ -401,15 +403,15 @@ public final class R {
  Subscription class 
  Subscription class 
          */
-        public static final int SubscriptAccept=0x7f070073;
-        public static final int SubscriptError=0x7f070074;
-        public static final int SubscriptRefused=0x7f070075;
-        public static final int SubscriptText=0x7f070076;
-        public static final int SubscriptTitle=0x7f070077;
-        public static final int UpdateButton=0x7f0700f3;
-        public static final int account_wizard_configure_account=0x7f0700ae;
-        public static final int account_wizard_configure_text=0x7f0700ad;
-        public static final int account_wizard_create_account=0x7f0700af;
+        public static final int SubscriptAccept=0x7f070071;
+        public static final int SubscriptError=0x7f070072;
+        public static final int SubscriptRefused=0x7f070073;
+        public static final int SubscriptText=0x7f070074;
+        public static final int SubscriptTitle=0x7f070075;
+        public static final int UpdateButton=0x7f0700ef;
+        public static final int account_wizard_configure_account=0x7f0700ab;
+        public static final int account_wizard_configure_text=0x7f0700aa;
+        public static final int account_wizard_create_account=0x7f0700ac;
         /**  wizard activities 
  wizard activities 
  wizard activities 
@@ -422,7 +424,7 @@ public final class R {
  wizard activities 
  wizard activities 
          */
-        public static final int account_wizard_text1=0x7f0700ac;
+        public static final int account_wizard_text1=0x7f0700a9;
         /**  Generic terms 
  Generic terms 
  Generic terms 
@@ -436,12 +438,12 @@ public final class R {
  Generic terms 
          */
         public static final int app_name=0x7f070000;
-        public static final int away_chk_sum=0x7f07005d;
-        public static final int away_chk_title=0x7f07005c;
-        public static final int away_message_hint=0x7f070060;
-        public static final int away_message_sum=0x7f07005f;
-        public static final int away_message_title=0x7f07005e;
-        public static final int bad_request=0x7f0700fb;
+        public static final int away_chk_sum=0x7f07005b;
+        public static final int away_chk_title=0x7f07005a;
+        public static final int away_message_hint=0x7f07005e;
+        public static final int away_message_sum=0x7f07005d;
+        public static final int away_message_title=0x7f07005c;
+        public static final int bad_request=0x7f0700f7;
         /**  Buttons 
  Buttons 
  Buttons 
@@ -456,43 +458,42 @@ public final class R {
  Buttons 
  Buttons 
          */
-        public static final int button_create_account=0x7f070084;
-        public static final int button_create_login_account=0x7f070085;
-        public static final int chat_dialog_change_chat_title=0x7f0700d5;
-        public static final int chat_error=0x7f0700cd;
-        public static final int chat_history_path=0x7f07006e;
-        public static final int chat_history_path_sum=0x7f07006f;
-        public static final int chat_input_default_value=0x7f0700cb;
-        public static final int chat_layout_option=0x7f0700a5;
-        public static final int chat_menu_change_chat=0x7f0700d0;
-        public static final int chat_menu_close_chat=0x7f0700d6;
-        public static final int chat_menu_contacts_list=0x7f0700cf;
-        public static final int chat_menu_otr_submenu=0x7f0700d4;
-        public static final int chat_menu_otr_verify_key=0x7f0700d3;
-        public static final int chat_menu_start_otr_session=0x7f0700d1;
-        public static final int chat_menu_stop_otr_session=0x7f0700d2;
-        public static final int chat_name=0x7f0700ca;
-        public static final int chat_no_more_chats=0x7f0700d7;
-        public static final int chat_otr_verify_key=0x7f0700e0;
-        public static final int chat_otrstate_authenticated=0x7f0700df;
-        public static final int chat_otrstate_encrypted=0x7f0700dd;
-        public static final int chat_otrstate_finished=0x7f0700de;
-        public static final int chat_otrstate_plaintext=0x7f0700dc;
-        public static final int chat_preferences=0x7f07006c;
-        public static final int chat_preferences_sum=0x7f07006d;
-        public static final int chat_self=0x7f0700cc;
-        public static final int chat_send_message=0x7f0700ce;
-        public static final int chat_state_active=0x7f0700da;
-        public static final int chat_state_composing=0x7f0700d8;
-        public static final int chat_state_gone=0x7f0700d9;
-        public static final int chat_state_inactive=0x7f0700db;
-        public static final int comments_proxy_port=0x7f070059;
-        public static final int comments_xmpp_port=0x7f070053;
-        public static final int comments_xmpp_server=0x7f07004f;
-        public static final int conflict=0x7f0700fe;
-        public static final int contact_list_all_contact=0x7f0700be;
+        public static final int button_create_account=0x7f070082;
+        public static final int button_create_login_account=0x7f070083;
+        public static final int chat_dialog_change_chat_title=0x7f0700d1;
+        public static final int chat_error=0x7f0700c9;
+        public static final int chat_history_path=0x7f07006c;
+        public static final int chat_history_path_sum=0x7f07006d;
+        public static final int chat_input_default_value=0x7f0700c7;
+        public static final int chat_layout_option=0x7f0700a2;
+        public static final int chat_menu_change_chat=0x7f0700cc;
+        public static final int chat_menu_close_chat=0x7f0700d2;
+        public static final int chat_menu_contacts_list=0x7f0700cb;
+        public static final int chat_menu_otr_submenu=0x7f0700d0;
+        public static final int chat_menu_otr_verify_key=0x7f0700cf;
+        public static final int chat_menu_start_otr_session=0x7f0700cd;
+        public static final int chat_menu_stop_otr_session=0x7f0700ce;
+        public static final int chat_name=0x7f0700c6;
+        public static final int chat_no_more_chats=0x7f0700d3;
+        public static final int chat_otr_verify_key=0x7f0700dc;
+        public static final int chat_otrstate_authenticated=0x7f0700db;
+        public static final int chat_otrstate_encrypted=0x7f0700d9;
+        public static final int chat_otrstate_finished=0x7f0700da;
+        public static final int chat_otrstate_plaintext=0x7f0700d8;
+        public static final int chat_preferences=0x7f07006a;
+        public static final int chat_preferences_sum=0x7f07006b;
+        public static final int chat_self=0x7f0700c8;
+        public static final int chat_send_message=0x7f0700ca;
+        public static final int chat_state_active=0x7f0700d6;
+        public static final int chat_state_composing=0x7f0700d4;
+        public static final int chat_state_gone=0x7f0700d5;
+        public static final int chat_state_inactive=0x7f0700d7;
+        public static final int comments_proxy_port=0x7f070057;
+        public static final int comments_xmpp_port=0x7f070051;
+        public static final int comments_xmpp_server=0x7f07004d;
+        public static final int conflict=0x7f0700fa;
+        public static final int contact_list_all_contact=0x7f0700ba;
         /**  ContactList Activity  
- ContactList Activity  
  ContactList Activity  
 
 		ContactList Activity 
@@ -505,27 +506,30 @@ public final class R {
  ContactList Activity  
  ContactList Activity  
          */
-        public static final int contact_list_menu_add_contact=0x7f0700ba;
-        public static final int contact_list_menu_disconnect=0x7f0700bd;
-        public static final int contact_list_menu_settings=0x7f0700bc;
-        public static final int contact_list_menu_status=0x7f0700bb;
-        public static final int contact_list_name=0x7f070081;
-        public static final int contact_list_no_group=0x7f0700bf;
-        public static final int contact_list_preferences=0x7f070041;
-        public static final int contact_list_preferences_sum=0x7f070042;
-        public static final int contact_list_tag=0x7f070082;
-        public static final int contact_status_msg_available=0x7f0700e1;
-        public static final int contact_status_msg_available_chat=0x7f0700e2;
-        public static final int contact_status_msg_away=0x7f0700e4;
-        public static final int contact_status_msg_dnd=0x7f0700e3;
-        public static final int contact_status_msg_offline=0x7f0700e6;
-        public static final int contact_status_msg_xa=0x7f0700e5;
-        public static final int create_account_close_dialog_button=0x7f0700b3;
-        public static final int create_account_confirm_password=0x7f0700b9;
-        public static final int create_account_err_dialog_settings_button=0x7f0700b2;
-        public static final int create_account_err_dialog_title=0x7f0700b1;
-        public static final int create_account_err_passwords=0x7f0700b6;
-        public static final int create_account_err_username=0x7f0700b5;
+        public static final int contact_list_menu_add_contact=0x7f070111;
+        public static final int contact_list_menu_disconnect=0x7f0700b9;
+        public static final int contact_list_menu_settings=0x7f0700b8;
+        /**  ContactList Activity  
+ 	<string name="contact_list_menu_add_contact">Add a contact</string> 
+         */
+        public static final int contact_list_menu_status=0x7f0700b7;
+        public static final int contact_list_name=0x7f07007f;
+        public static final int contact_list_no_group=0x7f0700bb;
+        public static final int contact_list_preferences=0x7f07003f;
+        public static final int contact_list_preferences_sum=0x7f070040;
+        public static final int contact_list_tag=0x7f070080;
+        public static final int contact_status_msg_available=0x7f0700dd;
+        public static final int contact_status_msg_available_chat=0x7f0700de;
+        public static final int contact_status_msg_away=0x7f0700e0;
+        public static final int contact_status_msg_dnd=0x7f0700df;
+        public static final int contact_status_msg_offline=0x7f0700e2;
+        public static final int contact_status_msg_xa=0x7f0700e1;
+        public static final int create_account_close_dialog_button=0x7f0700b0;
+        public static final int create_account_confirm_password=0x7f0700b6;
+        public static final int create_account_err_dialog_settings_button=0x7f0700af;
+        public static final int create_account_err_dialog_title=0x7f0700ae;
+        public static final int create_account_err_passwords=0x7f0700b3;
+        public static final int create_account_err_username=0x7f0700b2;
         /**  Create an account Activity 
  Create an account Activity 
  Create an account Activity 
@@ -540,15 +544,15 @@ public final class R {
  Create an account Activity 
  Create an account Activity 
          */
-        public static final int create_account_instr_dialog_title=0x7f0700b0;
-        public static final int create_account_name=0x7f07007f;
-        public static final int create_account_password=0x7f0700b8;
-        public static final int create_account_successfull_after=0x7f0700b4;
-        public static final int create_account_tag=0x7f070080;
-        public static final int create_account_username=0x7f0700b7;
+        public static final int create_account_instr_dialog_title=0x7f0700ad;
+        public static final int create_account_name=0x7f07007d;
+        public static final int create_account_password=0x7f0700b5;
+        public static final int create_account_successfull_after=0x7f0700b1;
+        public static final int create_account_tag=0x7f07007e;
+        public static final int create_account_username=0x7f0700b4;
         public static final int delete_avatar=0x7f07002a;
-        public static final int edit_settings_name=0x7f07007d;
-        public static final int edit_settings_tag=0x7f07007e;
+        public static final int edit_settings_name=0x7f07007b;
+        public static final int edit_settings_tag=0x7f07007c;
         /**  Error messages 
  Error messages 
  Error messages 
@@ -561,9 +565,9 @@ public final class R {
  Error messages 
  Error messages 
          */
-        public static final int error_login_authentication=0x7f0700f9;
-        public static final int feature_not_implemented=0x7f0700ff;
-        public static final int forbidden=0x7f0700fc;
+        public static final int error_login_authentication=0x7f0700f5;
+        public static final int feature_not_implemented=0x7f0700fb;
+        public static final int forbidden=0x7f0700f8;
         /**  EditSettings Activity Categories 
  EditSettings Activity Categories 
  EditSettings Activity Categories 
@@ -576,17 +580,17 @@ public final class R {
  EditSettings Activity Categories 
  EditSettings Activity Categories 
          */
-        public static final int general_preferences=0x7f07009e;
-        public static final int gone=0x7f070100;
-        public static final int history=0x7f070068;
-        public static final int history_mount=0x7f07006a;
-        public static final int history_on_off=0x7f07006b;
-        public static final int history_preferences=0x7f0700a4;
-        public static final int history_sum=0x7f070069;
-        public static final int interna_server_error=0x7f0700fa;
-        public static final int item_not_found=0x7f0700fd;
-        public static final int jid_malformed=0x7f070101;
-        public static final int loganim_authenticating=0x7f070098;
+        public static final int general_preferences=0x7f07009c;
+        public static final int gone=0x7f0700fc;
+        public static final int history=0x7f070066;
+        public static final int history_mount=0x7f070068;
+        public static final int history_on_off=0x7f070069;
+        public static final int history_preferences=0x7f0700a1;
+        public static final int history_sum=0x7f070067;
+        public static final int interna_server_error=0x7f0700f6;
+        public static final int item_not_found=0x7f0700f9;
+        public static final int jid_malformed=0x7f0700fd;
+        public static final int loganim_authenticating=0x7f070096;
         /**  LoginAnim activity 
  LoginAnim activity 
  LoginAnim activity 
@@ -599,25 +603,25 @@ public final class R {
  LoginAnim activity 
  LoginAnim activity 
          */
-        public static final int loganim_connecting=0x7f070097;
-        public static final int loganim_login_failed=0x7f07009a;
-        public static final int loganim_login_success=0x7f070099;
-        public static final int login_about_button=0x7f07008f;
-        public static final int login_about_msg=0x7f07008e;
-        public static final int login_about_title=0x7f07008d;
-        public static final int login_close_dialog_button=0x7f070089;
-        public static final int login_error_dialog_title=0x7f070088;
-        public static final int login_error_msg=0x7f070093;
-        public static final int login_login_button=0x7f070091;
-        public static final int login_login_progress=0x7f070092;
-        public static final int login_menu_about=0x7f07008c;
-        public static final int login_menu_create_account=0x7f07008a;
-        public static final int login_menu_login=0x7f070094;
-        public static final int login_menu_settings=0x7f07008b;
-        public static final int login_no_connectivity=0x7f070095;
-        public static final int login_password=0x7f070087;
-        public static final int login_settings_button=0x7f070090;
-        public static final int login_start_msg=0x7f070096;
+        public static final int loganim_connecting=0x7f070095;
+        public static final int loganim_login_failed=0x7f070098;
+        public static final int loganim_login_success=0x7f070097;
+        public static final int login_about_button=0x7f07008d;
+        public static final int login_about_msg=0x7f07008c;
+        public static final int login_about_title=0x7f07008b;
+        public static final int login_close_dialog_button=0x7f070087;
+        public static final int login_error_dialog_title=0x7f070086;
+        public static final int login_error_msg=0x7f070091;
+        public static final int login_login_button=0x7f07008f;
+        public static final int login_login_progress=0x7f070090;
+        public static final int login_menu_about=0x7f07008a;
+        public static final int login_menu_create_account=0x7f070088;
+        public static final int login_menu_login=0x7f070092;
+        public static final int login_menu_settings=0x7f070089;
+        public static final int login_no_connectivity=0x7f070093;
+        public static final int login_password=0x7f070085;
+        public static final int login_settings_button=0x7f07008e;
+        public static final int login_start_msg=0x7f070094;
         /**  Activities 
  Activities 
  Activities 
@@ -635,7 +639,7 @@ public final class R {
  Activities 
  Activities 
          */
-        public static final int login_tag=0x7f07007c;
+        public static final int login_tag=0x7f07007a;
         /**  LogAs Activity 
  LogAs Activity 
  LogAs Activity 
@@ -650,64 +654,66 @@ public final class R {
  LogAs Activity 
  LogAs Activity 
          */
-        public static final int login_username=0x7f070086;
-        public static final int login_username_info_default=0x7f070048;
+        public static final int login_username=0x7f070084;
+        public static final int login_username_info_default=0x7f070046;
         /**  MemorizingTrustManager library 
  MemorizingTrustManager library 
  MemorizingTrustManager library 
          */
-        public static final int mtm_accept_cert=0x7f0700f4;
-        public static final int mtm_decision_abort=0x7f0700f7;
-        public static final int mtm_decision_always=0x7f0700f5;
-        public static final int mtm_decision_once=0x7f0700f6;
-        public static final int mtm_notification=0x7f0700f8;
+        public static final int mtm_accept_cert=0x7f0700f0;
+        public static final int mtm_decision_abort=0x7f0700f3;
+        public static final int mtm_decision_always=0x7f0700f1;
+        public static final int mtm_decision_once=0x7f0700f2;
+        public static final int mtm_notification=0x7f0700f4;
         public static final int my_avatar=0x7f070026;
-        public static final int network_preferences=0x7f0700a1;
-        public static final int no_acceptable=0x7f070102;
-        public static final int not_allowed=0x7f070103;
-        public static final int not_authorized=0x7f070104;
-        public static final int notification_enable_vibrate_sum=0x7f070063;
-        public static final int notification_enable_vibrate_title=0x7f070062;
-        public static final int notification_preferences=0x7f070061;
-        public static final int notification_snd_sum=0x7f070065;
-        public static final int notification_snd_title=0x7f070064;
-        public static final int payment_required=0x7f070105;
+        /**  	<string name="user_preferences_advanced">User settings advanced (optional)</string> 
+         */
+        public static final int network_preferences=0x7f07009e;
+        public static final int no_acceptable=0x7f0700fe;
+        public static final int not_allowed=0x7f0700ff;
+        public static final int not_authorized=0x7f070100;
+        public static final int notification_enable_vibrate_sum=0x7f070061;
+        public static final int notification_enable_vibrate_title=0x7f070060;
+        public static final int notification_preferences=0x7f07005f;
+        public static final int notification_snd_sum=0x7f070063;
+        public static final int notification_snd_title=0x7f070062;
+        public static final int payment_required=0x7f070101;
         public static final int photoPickerNotFoundText=0x7f07002b;
         public static final int pick_photo=0x7f070029;
-        public static final int privacy_list_create_dialog_create_button=0x7f0700ec;
-        public static final int privacy_list_create_dialog_list_name_label=0x7f0700eb;
-        public static final int privacy_list_create_dialog_title=0x7f0700ea;
-        public static final int privacy_list_delete_dialog_msg=0x7f0700f0;
-        public static final int privacy_list_delete_dialog_no=0x7f0700f2;
-        public static final int privacy_list_delete_dialog_yes=0x7f0700f1;
-        public static final int privacy_list_menu_create=0x7f0700e9;
-        public static final int privacy_list_name=0x7f0700e7;
-        public static final int privacy_list_no_data=0x7f0700e8;
-        public static final int privacy_list_select_dialog_buddies=0x7f0700ed;
-        public static final int privacy_list_select_dialog_delete=0x7f0700ef;
-        public static final int privacy_list_select_dialog_groups=0x7f0700ee;
-        public static final int proxy_proxy_settings=0x7f0700a2;
-        public static final int proxy_user_settings=0x7f0700a3;
-        public static final int recipient_unavailable=0x7f070106;
-        public static final int redirect=0x7f070107;
-        public static final int registration_required=0x7f070108;
-        public static final int remote_server_error=0x7f07010b;
-        public static final int remote_server_not_found=0x7f070109;
-        public static final int remote_server_timeout=0x7f07010a;
-        public static final int request_timeout=0x7f070111;
-        public static final int resource_constraint=0x7f07010c;
+        public static final int privacy_list_create_dialog_create_button=0x7f0700e8;
+        public static final int privacy_list_create_dialog_list_name_label=0x7f0700e7;
+        public static final int privacy_list_create_dialog_title=0x7f0700e6;
+        public static final int privacy_list_delete_dialog_msg=0x7f0700ec;
+        public static final int privacy_list_delete_dialog_no=0x7f0700ee;
+        public static final int privacy_list_delete_dialog_yes=0x7f0700ed;
+        public static final int privacy_list_menu_create=0x7f0700e5;
+        public static final int privacy_list_name=0x7f0700e3;
+        public static final int privacy_list_no_data=0x7f0700e4;
+        public static final int privacy_list_select_dialog_buddies=0x7f0700e9;
+        public static final int privacy_list_select_dialog_delete=0x7f0700eb;
+        public static final int privacy_list_select_dialog_groups=0x7f0700ea;
+        public static final int proxy_proxy_settings=0x7f07009f;
+        public static final int proxy_user_settings=0x7f0700a0;
+        public static final int recipient_unavailable=0x7f070102;
+        public static final int redirect=0x7f070103;
+        public static final int registration_required=0x7f070104;
+        public static final int remote_server_error=0x7f070107;
+        public static final int remote_server_not_found=0x7f070105;
+        public static final int remote_server_timeout=0x7f070106;
+        public static final int request_timeout=0x7f07010d;
+        public static final int resource_constraint=0x7f070108;
         public static final int select_avatar=0x7f070027;
-        public static final int service_unavailable=0x7f07010d;
-        public static final int settings_account_password=0x7f070049;
-        public static final int settings_account_port=0x7f07004b;
-        public static final int settings_account_server=0x7f07004a;
-        public static final int settings_account_username=0x7f070047;
-        public static final int settings_advanced_service_behaviour=0x7f07004c;
-        public static final int settings_advanced_sum=0x7f07004d;
-        public static final int settings_chat_compact=0x7f070066;
-        public static final int settings_chat_compact_sum=0x7f070067;
-        public static final int settings_full_jid_login=0x7f070071;
-        public static final int settings_full_jid_login_sum=0x7f070072;
+        public static final int service_unavailable=0x7f070109;
+        public static final int settings_account_password=0x7f070047;
+        public static final int settings_account_port=0x7f070049;
+        public static final int settings_account_server=0x7f070048;
+        public static final int settings_account_username=0x7f070045;
+        public static final int settings_advanced_service_behaviour=0x7f07004a;
+        public static final int settings_advanced_sum=0x7f07004b;
+        public static final int settings_chat_compact=0x7f070064;
+        public static final int settings_chat_compact_sum=0x7f070065;
+        public static final int settings_full_jid_login=0x7f07006f;
+        public static final int settings_full_jid_login_sum=0x7f070070;
         /**  EditSettings Activity 
  EditSettings Activity 
  EditSettings Activity 
@@ -720,21 +726,21 @@ public final class R {
  EditSettings Activity 
  EditSettings Activity 
          */
-        public static final int settings_menu_create_account=0x7f07009b;
-        public static final int settings_menu_privacy_lists=0x7f07009c;
-        public static final int settings_proxy_password=0x7f07005b;
-        public static final int settings_proxy_port=0x7f070058;
-        public static final int settings_proxy_server=0x7f070057;
-        public static final int settings_proxy_sum=0x7f070054;
-        public static final int settings_proxy_type_prompt=0x7f070056;
-        public static final int settings_proxy_use=0x7f070055;
-        public static final int settings_proxy_username=0x7f07005a;
-        public static final int settings_reco_delay=0x7f070052;
-        public static final int settings_saved_ok=0x7f07009d;
-        public static final int settings_smack_debug=0x7f070070;
-        public static final int settings_tab_label_account=0x7f0700a7;
-        public static final int settings_tab_label_proxy=0x7f0700ab;
-        public static final int settings_tab_label_xmpp=0x7f0700a9;
+        public static final int settings_menu_create_account=0x7f070099;
+        public static final int settings_menu_privacy_lists=0x7f07009a;
+        public static final int settings_proxy_password=0x7f070059;
+        public static final int settings_proxy_port=0x7f070056;
+        public static final int settings_proxy_server=0x7f070055;
+        public static final int settings_proxy_sum=0x7f070052;
+        public static final int settings_proxy_type_prompt=0x7f070054;
+        public static final int settings_proxy_use=0x7f070053;
+        public static final int settings_proxy_username=0x7f070058;
+        public static final int settings_reco_delay=0x7f070050;
+        public static final int settings_saved_ok=0x7f07009b;
+        public static final int settings_smack_debug=0x7f07006e;
+        public static final int settings_tab_label_account=0x7f0700a4;
+        public static final int settings_tab_label_proxy=0x7f0700a8;
+        public static final int settings_tab_label_xmpp=0x7f0700a6;
         /**  EditSettings Activity Tabs 
  EditSettings Activity Tabs 
  EditSettings Activity Tabs 
@@ -747,19 +753,19 @@ public final class R {
  EditSettings Activity Tabs 
  EditSettings Activity Tabs 
          */
-        public static final int settings_tab_tag_account=0x7f0700a6;
-        public static final int settings_tab_tag_proxy=0x7f0700aa;
-        public static final int settings_tab_tag_xmpp=0x7f0700a8;
-        public static final int settings_xmpp_port=0x7f070050;
-        public static final int settings_xmpp_server=0x7f07004e;
-        public static final int settings_xmpp_use_tls=0x7f070051;
-        public static final int subscription_required=0x7f07010e;
+        public static final int settings_tab_tag_account=0x7f0700a3;
+        public static final int settings_tab_tag_proxy=0x7f0700a7;
+        public static final int settings_tab_tag_xmpp=0x7f0700a5;
+        public static final int settings_xmpp_port=0x7f07004e;
+        public static final int settings_xmpp_server=0x7f07004c;
+        public static final int settings_xmpp_use_tls=0x7f07004f;
+        public static final int subscription_required=0x7f07010a;
         public static final int take_photo=0x7f070028;
-        public static final int undefined_condition=0x7f07010f;
-        public static final int unexpected_condition=0x7f070110;
-        public static final int user_info_name=0x7f070083;
-        public static final int user_preferences=0x7f07009f;
-        public static final int user_preferences_advanced=0x7f0700a0;
+        public static final int undefined_condition=0x7f07010b;
+        public static final int unexpected_condition=0x7f07010c;
+        public static final int user_info_name=0x7f070081;
+        public static final int user_preferences=0x7f07009d;
+        public static final int user_preferences_advanced=0x7f070110;
         /**  UserInfo dialog 
  UserInfo dialog 
  UserInfo dialog 
@@ -774,16 +780,16 @@ public final class R {
  UserInfo dialog 
  UserInfo dialog 
          */
-        public static final int userinfo_label_alias=0x7f0700c0;
-        public static final int userinfo_label_block=0x7f0700c3;
-        public static final int userinfo_label_chg_group=0x7f0700c1;
-        public static final int userinfo_label_delete=0x7f0700c4;
-        public static final int userinfo_label_re_subscription=0x7f0700c2;
-        public static final int userinfo_no=0x7f0700c8;
-        public static final int userinfo_resend=0x7f0700c5;
-        public static final int userinfo_sure2delete=0x7f0700c6;
-        public static final int userinfo_sureresend=0x7f0700c9;
-        public static final int userinfo_yes=0x7f0700c7;
+        public static final int userinfo_label_alias=0x7f0700bc;
+        public static final int userinfo_label_block=0x7f0700bf;
+        public static final int userinfo_label_chg_group=0x7f0700bd;
+        public static final int userinfo_label_delete=0x7f0700c0;
+        public static final int userinfo_label_re_subscription=0x7f0700be;
+        public static final int userinfo_no=0x7f0700c4;
+        public static final int userinfo_resend=0x7f0700c1;
+        public static final int userinfo_sure2delete=0x7f0700c2;
+        public static final int userinfo_sureresend=0x7f0700c5;
+        public static final int userinfo_yes=0x7f0700c3;
     }
     public static final class style {
         public static final int CheckBoxLabel=0x7f080001;

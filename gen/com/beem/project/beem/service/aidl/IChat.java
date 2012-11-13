@@ -73,14 +73,6 @@ reply.writeInt(0);
 }
 return true;
 }
-case TRANSACTION_getThreadID:
-{
-data.enforceInterface(DESCRIPTOR);
-java.lang.String _result = this.getThreadID();
-reply.writeNoException();
-reply.writeString(_result);
-return true;
-}
 case TRANSACTION_addMessageListener:
 {
 data.enforceInterface(DESCRIPTOR);
@@ -250,27 +242,6 @@ _result = com.beem.project.beem.service.Contact.CREATOR.createFromParcel(_reply)
 else {
 _result = null;
 }
-}
-finally {
-_reply.recycle();
-_data.recycle();
-}
-return _result;
-}
-/**
-	 * Get the threadID of the chat
-	 * @return the threadID
-	 */
-public java.lang.String getThreadID() throws android.os.RemoteException
-{
-android.os.Parcel _data = android.os.Parcel.obtain();
-android.os.Parcel _reply = android.os.Parcel.obtain();
-java.lang.String _result;
-try {
-_data.writeInterfaceToken(DESCRIPTOR);
-mRemote.transact(Stub.TRANSACTION_getThreadID, _data, _reply, 0);
-_reply.readException();
-_result = _reply.readString();
 }
 finally {
 _reply.recycle();
@@ -509,20 +480,19 @@ return _result;
 }
 static final int TRANSACTION_sendMessage = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 static final int TRANSACTION_getParticipant = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
-static final int TRANSACTION_getThreadID = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
-static final int TRANSACTION_addMessageListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
-static final int TRANSACTION_removeMessageListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
-static final int TRANSACTION_getState = (android.os.IBinder.FIRST_CALL_TRANSACTION + 5);
-static final int TRANSACTION_setOpen = (android.os.IBinder.FIRST_CALL_TRANSACTION + 6);
-static final int TRANSACTION_isOpen = (android.os.IBinder.FIRST_CALL_TRANSACTION + 7);
-static final int TRANSACTION_setState = (android.os.IBinder.FIRST_CALL_TRANSACTION + 8);
-static final int TRANSACTION_getMessages = (android.os.IBinder.FIRST_CALL_TRANSACTION + 9);
-static final int TRANSACTION_startOtrSession = (android.os.IBinder.FIRST_CALL_TRANSACTION + 10);
-static final int TRANSACTION_endOtrSession = (android.os.IBinder.FIRST_CALL_TRANSACTION + 11);
-static final int TRANSACTION_getLocalOtrFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 12);
-static final int TRANSACTION_getRemoteOtrFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 13);
-static final int TRANSACTION_verifyRemoteFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 14);
-static final int TRANSACTION_getOtrStatus = (android.os.IBinder.FIRST_CALL_TRANSACTION + 15);
+static final int TRANSACTION_addMessageListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+static final int TRANSACTION_removeMessageListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+static final int TRANSACTION_getState = (android.os.IBinder.FIRST_CALL_TRANSACTION + 4);
+static final int TRANSACTION_setOpen = (android.os.IBinder.FIRST_CALL_TRANSACTION + 5);
+static final int TRANSACTION_isOpen = (android.os.IBinder.FIRST_CALL_TRANSACTION + 6);
+static final int TRANSACTION_setState = (android.os.IBinder.FIRST_CALL_TRANSACTION + 7);
+static final int TRANSACTION_getMessages = (android.os.IBinder.FIRST_CALL_TRANSACTION + 8);
+static final int TRANSACTION_startOtrSession = (android.os.IBinder.FIRST_CALL_TRANSACTION + 9);
+static final int TRANSACTION_endOtrSession = (android.os.IBinder.FIRST_CALL_TRANSACTION + 10);
+static final int TRANSACTION_getLocalOtrFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 11);
+static final int TRANSACTION_getRemoteOtrFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 12);
+static final int TRANSACTION_verifyRemoteFingerprint = (android.os.IBinder.FIRST_CALL_TRANSACTION + 13);
+static final int TRANSACTION_getOtrStatus = (android.os.IBinder.FIRST_CALL_TRANSACTION + 14);
 }
 /**
     	 * Send a message.
@@ -534,11 +504,6 @@ public void sendMessage(com.beem.project.beem.service.Message message) throws an
 	 * @return the participant
 	 */
 public com.beem.project.beem.service.Contact getParticipant() throws android.os.RemoteException;
-/**
-	 * Get the threadID of the chat
-	 * @return the threadID
-	 */
-public java.lang.String getThreadID() throws android.os.RemoteException;
 /**
 	 * Add a message listener.
 	 * @param listener the listener to add.
