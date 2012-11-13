@@ -140,6 +140,8 @@ public class ChatAdapter extends IChat.Stub {
 	String[] fromTo = TxtFeedbackUtilities.getFromToConversationID(convID);
 	String to = fromTo[0]+ com.beem.project.beem.service.Message.cTxtFeedbackSuffix;
 	String from = fromTo[1]+com.beem.project.beem.service.Message.cTxtFeedbackComponentSuffix;
+	//DA the java DateTime is always in UTC format 
+	//reference: http://stackoverflow.com/questions/308683/how-can-i-get-the-current-date-and-time-in-utc-or-gmt-in-java
 	Date now = new Date();
 	boolean forStaff = false;
 	TxtPacket pkg = new TxtPacket(from,to,now,msgBody,forStaff,isSMSBased,convID);
